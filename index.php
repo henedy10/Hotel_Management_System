@@ -1,5 +1,5 @@
 <?php 
-require "config.php";
+require "user_login.php";
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ require "config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- AOS Animation -->
@@ -54,27 +55,65 @@ require "config.php";
                     <div class="btns active">User</div>
                     <div class="btns">Staff</div>
                 </div>
-                <form class="user_login authsection active" id="userlogin" action="" method="POST">
+                <div>
+                    <p class="flex text-red-500">
+                        <?php 
+                            if(isset($_SESSION['exist_account_msg'])){
+                                echo "* ".$_SESSION['exist_account_msg'];
+                                unset($_SESSION['exist_account_msg']);
+                            }
+                        ?>
+                    </p>
+                </div>
+                <form class="user_login authsection active" id="userlogin" action="user_login.php" method="POST">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="Username" placeholder=" ">
+                        <input type="text" class="form-control" name="Username"  placeholder=" ">
                         <label for="Username">Username</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="email" class="form-control" name="Email" placeholder=" ">
-                        <label for="Email">Email</label>
+                    <div>
+                        <p class="flex text-red-500">
+                            <?php 
+                                if(isset($_SESSION['user_name_error'])){
+                                    echo "* ".$_SESSION['user_name_error'];
+                                    unset($_SESSION['user_name_error']);
+                                }
+                            ?>
+                        </p>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" name="Password" placeholder=" ">
+                        <input type="email" class="form-control" name="Email"  placeholder=" ">
+                        <label for="Email">Email</label>
+                    </div>
+                    <div>
+                        <p class="flex text-red-500">
+                            <?php 
+                                if(isset($_SESSION['user_email_error'])){
+                                    echo "* ".$_SESSION['user_email_error'];
+                                    unset($_SESSION['user_email_error']);
+                                }
+                            ?>
+                        </p>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" name="Password"  placeholder=" ">
                         <label for="Password">Password</label>
+                    </div>
+                    <div>
+                        <p class="flex text-red-500">
+                            <?php 
+                                if(isset($_SESSION['user_password_error'])){
+                                    echo "* ".$_SESSION['user_password_error'];
+                                    unset($_SESSION['user_password_error']);
+                                }
+                            ?>
+                        </p>
                     </div>
                     <button type="submit" name="user_login_submit" class="auth_btn">Log in</button>
                     <div class="footer_line">
                         <h6>Don't have an account? <span class="page_move_btn" onclick="signuppage()">sign up</span></h6>
                     </div>
                 </form>
-
                 <!-- Employee Login -->
-
                 <form class="employee_login authsection" id="employeelogin" action="" method="POST">
                     <div class="form-floating">
                         <input type="email" class="form-control" name="Emp_Email" placeholder=" ">
