@@ -9,41 +9,43 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $user_password=htmlspecialchars(stripslashes($_POST['Password']));
 
     if(empty($user_name)){
-        $_SESSION['user_name_error']="Username is required!";
+        $_SESSION['errors']['user_name_error']="Username is required!";
     }
     if(empty($user_email)){
-        $_SESSION['user_email_error']="Email is required";
+        $_SESSION['errors']['user_email_error']="Email is required";
     }else if(!filter_var($user_email,FILTER_VALIDATE_EMAIL)){
-        $_SESSION['user_email_error']="Email is invalid";
+        $_SESSION['errors']['user_email_error']="Email is invalid";
     }
     
     if(empty($user_password)){
-        $_SESSION['user_password_error']="Password is required";
+        $_SESSION['errors']['user_password_error']="Password is required";
     }else if(strlen($user_password)<8){
-        $_SESSION['user_password_error']="Password must be 8 characters at least";
+        $_SESSION['errors']['user_password_error']="Password must be 8 characters at least";
     }
-    if(isset($_SESSION['user_name_error'])||isset($_SESSION['user_email_error'])||isset($_SESSION['user_password_error'])){
+    if(!empty($_SESSION['errors'])){
         header("Location: index.php");
+        exit;
     }else{
-        $sql_fetch_user="SELECT * FROM users WHERE name = ? AND email = ? AND `password` = ?";
+        $sql_fetch_user="SELECT * FROM users WHERE name = ? AND email = ? ";
         $stmt=$conn->prepare($sql_fetch_user);
-        $stmt->bind_param("sss",$user_name,$user_email,$user_password);
+        $stmt->bind_param("ss",$user_name,$user_email);
         $stmt->execute();
         $result=$stmt->get_result();
         if($result->num_rows>0){
             $row=$result->fetch_assoc();
-            header("Location: home.php?id = $row[id]");
+            if(!password_verify($user_password,$row['password'])){
+                $_SESSION['errors']['user_password_error']="Password is incorrect!";
+                header("Location: index.php");
+                exit;
+            }else{
+                header("Location: home.php?id=$row[id]");
+                exit;
+            }
         }else{
             $_SESSION['exist_account_msg']="This account is not exist! ";
             header("Location: index.php");
+            exit;
         }
     }
 }
-
-
-
-
-
-
-
 ?>

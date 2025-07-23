@@ -73,9 +73,9 @@ require "user_login.php";
                     <div>
                         <p class="flex text-red-500">
                             <?php 
-                                if(isset($_SESSION['user_name_error'])){
-                                    echo "* ".$_SESSION['user_name_error'];
-                                    unset($_SESSION['user_name_error']);
+                                if(isset($_SESSION['errors']['user_name_error'])){
+                                    echo "* ".$_SESSION['errors']['user_name_error'];
+                                    unset($_SESSION['errors']['user_name_error']);
                                 }
                             ?>
                         </p>
@@ -87,9 +87,9 @@ require "user_login.php";
                     <div>
                         <p class="flex text-red-500">
                             <?php 
-                                if(isset($_SESSION['user_email_error'])){
-                                    echo "* ".$_SESSION['user_email_error'];
-                                    unset($_SESSION['user_email_error']);
+                                if(isset($_SESSION['errors']['user_email_error'])){
+                                    echo "* ".$_SESSION['errors']['user_email_error'];
+                                    unset($_SESSION['errors']['user_email_error']);
                                 }
                             ?>
                         </p>
@@ -101,16 +101,16 @@ require "user_login.php";
                     <div>
                         <p class="flex text-red-500">
                             <?php 
-                                if(isset($_SESSION['user_password_error'])){
-                                    echo "* ".$_SESSION['user_password_error'];
-                                    unset($_SESSION['user_password_error']);
+                                if(isset($_SESSION['errors']['user_password_error'])){
+                                    echo "* ".$_SESSION['errors']['user_password_error'];
+                                    unset($_SESSION['errors']['user_password_error']);
                                 }
                             ?>
                         </p>
                     </div>
                     <button type="submit" name="user_login_submit" class="auth_btn">Log in</button>
                     <div class="footer_line">
-                        <h6>Don't have an account? <span class="page_move_btn" onclick="signuppage()">sign up</span></h6>
+                        <h6>Don't have an account? <span class="page_move_btn"><a href="./user_signup/user_signup_view.php">sign up</a></span></h6>
                     </div>
                 </form>
                 <!-- Employee Login -->
@@ -124,33 +124,6 @@ require "user_login.php";
                         <label for="floatingPassword">Password</label>
                     </div>
                     <button type="submit" name="Emp_login_submit" class="auth_btn">Log in</button>
-                </form>
-            </div>
-
-
-            <div id="sign_up">
-                <h2>Sign Up</h2>
-                <form class="user_signup" id="usersignup" action="" method="POST">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" name="Username" placeholder=" ">
-                        <label for="Username">Username</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="email" class="form-control" name="Email" placeholder=" ">
-                        <label for="Email">Email</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" name="Password" placeholder=" ">
-                        <label for="Password">Password</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" name="CPassword" placeholder=" ">
-                        <label for="CPassword">Confirm Password</label>
-                    </div>
-                    <button type="submit" name="user_signup_submit" class="auth_btn">Sign up</button>
-                    <div class="footer_line">
-                        <h6>Already have an account? <span class="page_move_btn" onclick="loginpage()">Log in</span></h6>
-                    </div>
                 </form>
             </div>
         </div>
