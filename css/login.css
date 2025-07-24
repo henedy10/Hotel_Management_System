@@ -74,6 +74,10 @@ section {
     align-items: center;
 }
 
+a .btn{
+    text-decoration: none;
+}
+
 .role_btn {
     display: flex;
     gap: 30px;
