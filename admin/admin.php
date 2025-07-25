@@ -29,7 +29,7 @@
             <p>BLUEBIRD</p>
         </div>
         <div class="logout">
-        <a href="#"><button class="btn btn-primary">Logout</button></a>
+        <a href="../admin/logout.php"><button class="btn btn-primary">Logout</button></a>
         </div>
     </nav>
     <nav class="sidenav">
