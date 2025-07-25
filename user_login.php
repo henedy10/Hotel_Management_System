@@ -38,6 +38,8 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                 header("Location: index.php");
                 exit;
             }else{
+                $_SESSION['user_name']=$row['name'];
+                $_SESSION['user_email']=$row['email'];
                 header("Location: home.php?id=$row[id]");
                 exit;
             }

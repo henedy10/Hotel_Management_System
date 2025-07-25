@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +35,7 @@
       <li><a href="#secondsection">Rooms</a></li>
       <li><a href="#thirdsection">Facilites</a></li>
       <li><a href="#contactus">contact us</a></li>
-      <a href="./logout.php"><button class="btn btn-danger">Logout</button></a>
+      <a href="./user_logout.php"><button class="btn btn-danger">Logout</button></a>
     </ul>
   </nav>
 
