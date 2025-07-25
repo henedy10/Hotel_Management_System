@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../config.php";
+require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $user_name_signup=htmlspecialchars(strip_tags($_POST['Username_Signup']));

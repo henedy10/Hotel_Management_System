@@ -1,5 +1,5 @@
 <?php 
-require "../staff_login/staff_login.php";
+require "admin_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -7,7 +7,7 @@ require "../staff_login/staff_login.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../../css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Sweet Alert -->
@@ -25,16 +25,16 @@ require "../staff_login/staff_login.php";
     <section id="carouselExampleControls" class="carousel slide carousel_section" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="carousel-image" src="../image/hotel1.jpg">
+                <img class="carousel-image" src="../../image/hotel1.jpg">
             </div>
             <div class="carousel-item">
-                <img class="carousel-image" src="../image/hotel2.jpg">
+                <img class="carousel-image" src="../../image/hotel2.jpg">
             </div>
             <div class="carousel-item">
-                <img class="carousel-image" src="../image/hotel3.jpg">
+                <img class="carousel-image" src="../../image/hotel3.jpg">
             </div>
             <div class="carousel-item">
-                <img class="carousel-image" src="../image/hotel4.jpg">
+                <img class="carousel-image" src="../../image/hotel4.jpg">
             </div>
         </div>
     </section>
@@ -42,7 +42,7 @@ require "../staff_login/staff_login.php";
     <!-- Main Section -->
     <section id="auth_section">
         <div class="logo">
-            <img class="bluebirdlogo" src="../image/bluebirdlogo.png" alt="logo">
+            <img class="bluebirdlogo" src="../../image/bluebirdlogo.png" alt="logo">
             <p>BLUEBIRD</p>
         </div>
         <div class="auth_container">
@@ -50,8 +50,8 @@ require "../staff_login/staff_login.php";
             <div id="Log_in">
                 <h2>Log In</h2>
                 <div class="role_btn">
-                    <div class="btns"><a href="../index.php" class="btn">User</a></div>
-                    <div class="btns active">Staff</div>
+                    <div class="btns"><a href="../../index.php" class="btn">User</a></div>
+                    <div class="btns active">Admin</div>
                 </div>
                 <div>
                     <p class="flex text-red-500">
@@ -64,7 +64,7 @@ require "../staff_login/staff_login.php";
                     </p>
                 </div>
                 <!-- Employee Login -->
-                <form class="employee_login authsection active" id="employeelogin" action="../staff_login/staff_login.php" method="POST">
+                <form class="employee_login authsection active" id="employeelogin" action="admin_login.php" method="POST">
                     <div class="form-floating">
                         <input type="email" class="form-control" name="Emp_Email" placeholder=" ">
                         <label for="floatingInput">Email</label>

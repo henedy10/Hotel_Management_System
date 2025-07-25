@@ -53,7 +53,7 @@ require "user_login.php";
                 <h2>Log In</h2>
                 <div class="role_btn">
                     <div class="btns active">User</div>
-                    <div class="btns"><a href="./staff_login/staff_login_view.php" class="btn">Staff</a></div>
+                    <div class="btns"><a href="./admin/admin_login/admin_login_view.php" class="btn">Admin</a></div>
                 </div>
                 <div>
                     <p class="flex text-red-500">

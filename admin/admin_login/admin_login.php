@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "../config.php";
+require "../../database/config.php";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
@@ -18,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
 
     if(empty($_SESSION['errors'])){
-        $sql_check_account="SELECT * FROM staff WHERE email=?";
+        $sql_check_account="SELECT * FROM `admin` WHERE email=?";
         $stmt=$conn->prepare($sql_check_account);
         $stmt->bind_param('s',$employee_email);
         $stmt->execute();
@@ -27,19 +27,19 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $row=$result->fetch_assoc();
             if(!password_verify($employee_password,$row['password'])){
                 $_SESSION['exist_account_msg']="Password is incorrect";
-                header("Location: ../staff_login/staff_login_view.php");
+                header("Location: admin_login_view.php");
                 exit;
             }else{
-                header("Location: ../admin/admin.php");
+                header("Location: ../admin.php");
                 exit;
             }
         }else{
             $_SESSION['exist_account_msg']="This account doesn't exist";
-            header("Location: ../staff_login/staff_login_view.php");
+            header("Location: admin_login_view.php");
             exit;
         }
     }else{
-        header("Location: ../staff_login/staff_login_view.php");
+        header("Location: admin_login_view.php");
         exit;
     }
 }
