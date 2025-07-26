@@ -2,9 +2,8 @@
 session_start();
 require "../database/config.php";
 if($_SERVER['REQUEST_METHOD']=="POST"){
-    echo $_POST['typeroom'];
-    $typeroom=$_POST['typeroom'];
-    $typebed=$_POST['bed'];
+    $typeroom=$_POST['room_type'];
+    $typebed=$_POST['bed_type'];
     if(empty($typeroom)){
         $_SESSION['errors']['typeroom']="You must select value for room";
     }
