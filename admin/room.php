@@ -88,8 +88,8 @@ $result=$conn->query($sql);
                 <tbody class="text-gray-800 text-base">
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['room_type']; ?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['bed_type']; ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['room_type'])); ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_type'])); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
