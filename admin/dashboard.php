@@ -29,30 +29,20 @@ $num_room=$result_count_room->num_rows;
     <title>BlueBird - Admin </title>
 </head>
 <body>
-   <div class="databox">
-        <div class="box profitbox">
-          <h2>Total Room</h1>  
-          <h1><?php echo $num_room ?></h1>
-        </div>
-        <div class="box roombookbox">
-          <h2>Total Booked Room</h1>  
-          <h1>#</h1>
-        </div>
-        <div class="box guestbox">
-          <h2>Total Staff</h1>  
-          <h1><?php echo $num_staff ?></h1>
-        </div>
+    <div class="databox">
+      <div class="box roombox">
+        <h2>Total Room</h1>  
+        <h1><?php echo $num_room ?></h1>
+      </div>
+      <div class="box roombookbox">
+        <h2>Total Booked Room</h1>  
+        <h1>#</h1>
+      </div>
+      <div class="box guestbox">
+        <h2>Total Staff</h1>  
+        <h1><?php echo $num_staff ?></h1>
+      </div>
     </div>
-    <!-- <div class="chartbox">
-        <div class="bookroomchart">
-            <canvas id="bookroomchart"></canvas>
-            <h3 style="text-align: center;margin:10px 0;">Booked Room</h3>
-        </div>
-        <div class="profitchart" >
-            <div id="profitchart"></div>
-            <h3 style="text-align: center;margin:10px 0;">Profit</h3>
-        </div>
-    </div> -->
 </body>
 
 
@@ -76,7 +66,7 @@ $num_room=$result_count_room->num_rows;
                 'rgba(153, 102, 255, 1)',
             ],
             borderColor: 'black',
-            data: [<?php echo $chartroom1row ?>,<?php echo $chartroom2row ?>,<?php echo $chartroom3row ?>,<?php echo $chartroom4row ?>],
+            data: [],
           }]
         };
   

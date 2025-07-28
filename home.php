@@ -1,3 +1,8 @@
+<?php 
+if(isset($_POST['book']))
+    header("Location: ./roomconfirm.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/home.css">
     <title>Hotel blue bird</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- boot -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -53,131 +59,72 @@
         <div class="carousel-item">
             <img class="carousel-image" src="./image/hotel4.jpg">
         </div>
-
         <div class="welcomeline">
           <h1 class="welcometag">Welcome to heaven on earth</h1>
         </div>
-
-      <!-- bookbox -->
-      <div id="guestdetailpanel">
-        <form action="" method="POST" class="guestdetailpanelform">
-            <div class="head">
-                <h3>RESERVATION</h3>
-                <i class="fa-solid fa-circle-xmark" onclick="closebox()"></i>
-            </div>
-            <div class="middle">
-                <div class="guestinfo">
-                    <h4>Guest information</h4>
-                    <input type="text" name="Name" placeholder="Enter Full name">
-                    <input type="email" name="Email" placeholder="Enter Email">
-                    <input type="text" name="Phone" placeholder="Enter Phoneno">
-                </div>
-
-                <div class="line"></div>
-
-                <div class="reservationinfo">
-                    <h4>Reservation information</h4>
-                    <select name="RoomType" class="selectinput">
-						<option value selected >Type Of Room</option>
-                        <option value="Superior Room">SUPERIOR ROOM</option>
-                        <option value="Deluxe Room">DELUXE ROOM</option>
-						<option value="Guest House">GUEST HOUSE</option>
-						<option value="Single Room">SINGLE ROOM</option>
-                    </select>
-                    <select name="Bed" class="selectinput">
-						<option value selected >Bedding Type</option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option>
-						<option value="Triple">Triple</option>
-                        <option value="Quad">Quad</option>
-                    </select>
-                    <select name="Meal" class="selectinput">
-						<option value selected >Meal</option>
-                        <option value="Room only">Room only</option>
-                        <option value="Breakfast">Breakfast</option>
-						<option value="Half Board">Half Board</option>
-						<option value="Full Board">Full Board</option>
-					</select>
-                    <div class="datesection">
-                        <span>
-                            <label for="cin"> Check-In</label>
-                            <input name="cin" type ="date">
-                        </span>
-                        <span>
-                            <label for="cin"> Check-Out</label>
-                            <input name="cout" type ="date">
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer">
-                <button class="btn btn-success" name="guestdetailsubmit">Submit</button>
-            </div>
-        </form>
-
-          </div>
-
     </div>
   </section>
-    
   <section id="secondsection"> 
-    <img src="./image/homeanimatebg.svg">
-    <div class="ourroom">
-      <h1 class="head">≼ Our room ≽</h1>
-      <div class="roomselect">
-        <div class="roombox">
-          <div class="hotelphoto h1"></div>
-          <div class="roomdata">
-            <h2>Superior Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-              <i class="fa-solid fa-dumbbell"></i>
-              <i class="fa-solid fa-person-swimming"></i>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+        <img src="./image/homeanimatebg.svg">
+        <div class="ourroom">
+          <h1 class="head">≼ Our room ≽</h1>
+          <div class="roomselect">
+            <div class="roombox">
+              <div class="hotelphoto h1"></div>
+              <div class="roomdata">
+                <h2>Superior Room</h2>
+                <div class="services">
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-burger"></i>
+                  <i class="fa-solid fa-spa"></i>
+                  <i class="fa-solid fa-dumbbell"></i>
+                  <i class="fa-solid fa-person-swimming"></i>
+                </div>
+                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+              </div>
             </div>
-            <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <div class="roombox">
+              <div class="hotelphoto h2"></div>
+              <div class="roomdata">
+                <h2>Delux Room</h2>
+                <div class="services">
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-burger"></i>
+                  <i class="fa-solid fa-spa"></i>
+                  <i class="fa-solid fa-dumbbell"></i>
+                </div>
+                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+              </div>
+            </div>
+            <div class="roombox">
+              <div class="hotelphoto h3"></div>
+              <div class="roomdata">
+                <h2>Guest Room</h2>
+                <div class="services">
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-burger"></i>
+                  <i class="fa-solid fa-spa"></i>
+                </div>
+                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+              </div>
+            </div>
+            <div class="roombox">
+              <div class="hotelphoto h4"></div>
+              <div class="roomdata">
+                <h2>Single Room</h2>
+                <div class="services">
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-burger"></i>
+                </div>
+                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="roombox">
-          <div class="hotelphoto h2"></div>
-          <div class="roomdata">
-            <h2>Delux Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-              <i class="fa-solid fa-dumbbell"></i>
-            </div>
-            <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-          </div>
-        </div>
-        <div class="roombox">
-          <div class="hotelphoto h3"></div>
-          <div class="roomdata">
-            <h2>Guest Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-            </div>
-            <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-          </div>
-        </div>
-        <div class="roombox">
-          <div class="hotelphoto h4"></div>
-          <div class="roomdata">
-            <h2>Single Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-            </div>
-            <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </form>
+      </section>
+
 
   <section id="thirdsection">
     <h1 class="head">≼ Facilities ≽</h1>
@@ -212,15 +159,11 @@
   </section>
 </body>
 
-<script>
+<!-- <script>
 
     var bookbox = document.getElementById("guestdetailpanel");
-
-    openbookbox = () =>{
-      bookbox.style.display = "flex";
-    }
-    closebox = () =>{
-      bookbox.style.display = "none";
-    }
-</script>
+        document.getElementById("bookbtn").addEventListener("click", function () {
+        window.location.href = "./roomconfirm.php"; // غير الرابط حسب ما تحب
+    });
+</script> -->
 </html>
