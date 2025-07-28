@@ -1,6 +1,6 @@
 <?php 
 if(isset($_POST['book']))
-    header("Location: ./roombookconfirm.php");
+    header("Location: ./user_room_book/roombookconfirm.php");
 ?>
 
 <!DOCTYPE html>

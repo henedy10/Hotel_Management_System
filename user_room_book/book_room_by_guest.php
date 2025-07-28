@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "./database/config.php";
+require "../database/config.php";
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $guest_name=htmlspecialchars(strip_tags($_POST['Name']));
     $guest_email=htmlspecialchars(strip_tags($_POST['Email']));

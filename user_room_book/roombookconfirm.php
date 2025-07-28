@@ -14,7 +14,7 @@ require "./book_room_by_guest.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="./admin/css/roombook.css">
+    <link rel="stylesheet" href="../admin/css/roombook.css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@ require "./book_room_by_guest.php";
         <form action="./book_room_by_guest.php" method="POST" class="guestdetailpanelform">
             <div class="head">
                 <h3>RESERVATION</h3>
-                <a href="./home.php"><i class="fa-solid fa-circle-xmark"></i></a>
+                <a href="../home.php"><i class="fa-solid fa-circle-xmark"></i></a>
             </div>
             <div class="middle">
                 <div class="guestinfo">
