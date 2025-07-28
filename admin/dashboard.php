@@ -1,4 +1,11 @@
+<?php 
+require "../database/config.php";
 
+$sql_count_staff="SELECT count(*) FROM staff";
+$result_count_staff=$conn->query($sql_count_staff);
+$num_staff=$result->num_rows;
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +33,7 @@
         </div>
         <div class="box guestbox">
         <h2>Total Staff</h1>  
-          <h1>#</h1>
+          <h1><?php echo $num ?></h1>
         </div>
         <div class="box profitbox">
         <h2>Profit</h1>  

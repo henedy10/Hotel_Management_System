@@ -53,12 +53,6 @@
                     <input type="text" name="Name" placeholder="Enter Full name" value="">
                     <input type="email" name="Email" placeholder="Enter Email" value="">
 
-
-
-                    <select name="Country" class="selectinput">
-						<option value selected >Select your country</option>
-
-                    </select>
                     <input type="text" name="Phone" placeholder="Enter Phoneno"  value="">
                 </div>
 
@@ -79,13 +73,6 @@
                         <option value="Double">Double</option>
 						<option value="Triple">Triple</option>
                         <option value="Quad">Quad</option>
-						<option value="None">None</option>
-                    </select>
-                    <select name="NoofRoom" class="selectinput">
-						<option value selected >No of Room</option>
-                        <option value="1">1</option>
-                        <!-- <option value="1">2</option>
-                        <option value="1">3</option> -->
                     </select>
                     <select name="Meal" class="selectinput">
 						<option value selected >Meal</option>
@@ -100,7 +87,7 @@
                             <input name="cin" type ="date" value="">
                         </span>
                         <span>
-                            <label for="cin"> Check-Out</label>
+                            <label for="cout"> Check-Out</label>
                             <input name="cout" type ="date" value="">
                         </span>
                     </div>
