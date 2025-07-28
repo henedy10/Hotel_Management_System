@@ -1,6 +1,6 @@
 <?php 
 if(isset($_POST['book']))
-    header("Location: ./roomconfirm.php");
+    header("Location: ./roombookconfirm.php");
 ?>
 
 <!DOCTYPE html>
@@ -158,12 +158,4 @@ if(isset($_POST['book']))
     </div>
   </section>
 </body>
-
-<!-- <script>
-
-    var bookbox = document.getElementById("guestdetailpanel");
-        document.getElementById("bookbtn").addEventListener("click", function () {
-        window.location.href = "./roomconfirm.php"; // غير الرابط حسب ما تحب
-    });
-</script> -->
 </html>

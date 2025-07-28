@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
     $conn->close();
 
-    header("Location: ./roomconfirm.php");
+    header("Location: ./roombookconfirm.php");
     exit;
 }
 ?>
