@@ -90,7 +90,6 @@
                         <option value="Double">Double</option>
 						<option value="Triple">Triple</option>
                         <option value="Quad">Quad</option>
-						<option value="None">None</option>
                     </select>
                     <select name="Meal" class="selectinput">
 						<option value selected >Meal</option>

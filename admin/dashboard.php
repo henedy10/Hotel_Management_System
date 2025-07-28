@@ -1,10 +1,13 @@
 <?php 
 require "../database/config.php";
 
-$sql_count_staff="SELECT count(*) FROM staff";
+$sql_count_staff="SELECT * FROM staff";
 $result_count_staff=$conn->query($sql_count_staff);
-$num_staff=$result->num_rows;
+$num_staff=$result_count_staff->num_rows;
 
+$sql_count_room= "SELECT * FROM rooms";
+$result_count_room=$conn->query($sql_count_room);
+$num_room=$result_count_room->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -27,20 +30,20 @@ $num_staff=$result->num_rows;
 </head>
 <body>
    <div class="databox">
+        <div class="box profitbox">
+          <h2>Total Room</h1>  
+          <h1><?php echo $num_room ?></h1>
+        </div>
         <div class="box roombookbox">
           <h2>Total Booked Room</h1>  
           <h1>#</h1>
         </div>
         <div class="box guestbox">
-        <h2>Total Staff</h1>  
-          <h1><?php echo $num ?></h1>
-        </div>
-        <div class="box profitbox">
-        <h2>Profit</h1>  
-          <h1>#</h1>
+          <h2>Total Staff</h1>  
+          <h1><?php echo $num_staff ?></h1>
         </div>
     </div>
-    <div class="chartbox">
+    <!-- <div class="chartbox">
         <div class="bookroomchart">
             <canvas id="bookroomchart"></canvas>
             <h3 style="text-align: center;margin:10px 0;">Booked Room</h3>
@@ -49,7 +52,7 @@ $num_staff=$result->num_rows;
             <div id="profitchart"></div>
             <h3 style="text-align: center;margin:10px 0;">Profit</h3>
         </div>
-    </div>
+    </div> -->
 </body>
 
 
