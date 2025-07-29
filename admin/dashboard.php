@@ -8,6 +8,10 @@ $num_staff=$result_count_staff->num_rows;
 $sql_count_room= "SELECT * FROM rooms";
 $result_count_room=$conn->query($sql_count_room);
 $num_room=$result_count_room->num_rows;
+
+$sql_count_room_booked="SELECT * FROM room_booking";
+$result_count_room_booked=$conn->query($sql_count_room_booked);
+$num_room_booked=$result_count_room_booked->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +40,7 @@ $num_room=$result_count_room->num_rows;
       </div>
       <div class="box roombookbox">
         <h2>Total Booked Room</h1>  
-        <h1>#</h1>
+        <h1><?php echo $num_room_booked ?></h1>
       </div>
       <div class="box guestbox">
         <h2>Total Staff</h1>  
