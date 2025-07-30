@@ -12,6 +12,7 @@
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./css/roombook.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         #editpanel{
             position : fixed;
@@ -33,9 +34,8 @@
             top: 20px;
             animation: guestinfoform .3s ease;
         }
-
     </style>
-    <title>Document</title>
+    <title>Edit-Room-Booked</title>
 </head>
 <body>
     <div id="editpanel">
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="footer">
-                <button class="btn btn-success" name="guestdetailedit">Edit</button>
+                <button class="btn btn-success" name="guestdetailedit" type="submit">Edit</button>
             </div>
         </form>
     </div>

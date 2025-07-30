@@ -1,8 +1,12 @@
+<?php 
 
+require "../database/config.php";
+$sql_room_booked="SELECT * FROM room_booking";
+$result=$conn->query($sql_room_booked);
 
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,124 +19,64 @@
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./css/roombook.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>BlueBird - Admin</title>
 </head>
 
 <body>
-    <!-- guestdetailpanel -->
-
-    <div id="guestdetailpanel">
-        <form action="" method="POST" class="guestdetailpanelform">
-            <div class="head">
-                <h3>RESERVATION</h3>
-                <i class="fa-solid fa-circle-xmark" onclick="adduserclose()"></i>
-            </div>
-            <div class="middle">
-                <div class="guestinfo">
-                    <h4>Guest information</h4>
-                    <input type="text" name="Name" placeholder="Enter Full name" required>
-                    <input type="email" name="Email" placeholder="Enter Email" required>
-
-
-
-                    <select name="Country" class="selectinput" required>
-						<option value selected >Select your country</option>
-                    </select>
-                    <input type="text" name="Phone" placeholder="Enter Phoneno" required>
-                </div>
-
-                <div class="line"></div>
-
-                <div class="reservationinfo">
-                    <h4>Reservation information</h4>
-                    <select name="RoomType" class="selectinput">
-						<option value selected >Type Of Room</option>
-                        <option value="Superior Room">SUPERIOR ROOM</option>
-                        <option value="Deluxe Room">DELUXE ROOM</option>
-						<option value="Guest House">GUEST HOUSE</option>
-						<option value="Single Room">SINGLE ROOM</option>
-                    </select>
-                    <select name="Bed" class="selectinput">
-						<option value selected >Bedding Type</option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option>
-						<option value="Triple">Triple</option>
-                        <option value="Quad">Quad</option>
-						<option value="None">None</option>
-                    </select>
-                    <select name="NoofRoom" class="selectinput">
-						<option value selected >No of Room</option>
-                        <option value="1">1</option>
-                        <!-- <option value="1">2</option>
-                        <option value="1">3</option> -->
-                    </select>
-                    <select name="Meal" class="selectinput">
-						<option value selected >Meal</option>
-                        <option value="Room only">Room only</option>
-                        <option value="Breakfast">Breakfast</option>
-						<option value="Half Board">Half Board</option>
-						<option value="Full Board">Full Board</option>
-					</select>
-                    <div class="datesection">
-                        <span>
-                            <label for="cin"> Check-In</label>
-                            <input name="cin" type ="date">
-                        </span>
-                        <span>
-                            <label for="cin"> Check-Out</label>
-                            <input name="cout" type ="date">
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer">
-                <button class="btn btn-success" name="guestdetailsubmit">Submit</button>
-            </div>
-        </form>
-
-
-        
-    </div>
-
-    
-    <!-- ================================================= -->
     <div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-        <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button>
-        <form action="#" method="post">
-            <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
-        </form>
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">
         <table class="table table-bordered" id="table-data">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Country</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Type of Room</th>
                     <th scope="col">Type of Bed</th>
-                    <th scope="col">No of Room</th>
                     <th scope="col">Meal</th>
                     <th scope="col">Check-In</th>
                     <th scope="col">Check-Out</th>
                     <th scope="col">No of Day</th>
-                    <th scope="col">Status</th>
                     <th scope="col" class="action">Action</th>
-                    <!-- <th>Delete</th> -->
                 </tr>
             </thead>
-
-            <tbody>
+            <tbody class="text-gray-800 text-base">
+                <?php while($row=$result->fetch_assoc()):?>
+                    <?php 
+                        $check_in_date= new DateTime($row['check_in']);
+                        $check_out_date= new DateTime($row['check_out']);
+                        $diff=$check_out_date->diff($check_in_date);
+                        $DaysBetweenThem=$diff->days;
+                    ?>
+                    <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['guest_name'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['guest_email'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['guest_phone'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['room_type'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['bed_type'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['meal'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_in'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_out'] ?></td>
+                        <td class="px-6 py-4 border border-gray-300"><?php echo $DaysBetweenThem ?></td>
+                        <td class="px-6 py-4 border border-gray-300">
+                            <form action="./roombookdelete.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-1">Delete</button>
+                            </form>
+                            <form action="./roombookedit.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                <button type="submit"   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">Edit</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
             </tbody>
         </table>
     </div>
 </body>
 <script src="./javascript/roombook.js"></script>
-
-
-
 </html>
