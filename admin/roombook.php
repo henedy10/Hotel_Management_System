@@ -1,6 +1,7 @@
 <?php 
 
-require "../database/config.php";
+require "./roombookdelete.php";
+
 $sql_room_booked="SELECT * FROM room_booking";
 $result=$conn->query($sql_room_booked);
 
@@ -63,20 +64,49 @@ $result=$conn->query($sql_room_booked);
                         <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_out'] ?></td>
                         <td class="px-6 py-4 border border-gray-300"><?php echo $DaysBetweenThem ?></td>
                         <td class="px-6 py-4 border border-gray-300">
-                            <form action="./roombookdelete.php" method="POST">
+                            <form action="./roombookdelete.php" method="POST" onsubmit="return confirmDelete();">
                                 <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-1">Delete</button>
+                                <button 
+                                        type="submit"
+                                        class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-1">
+                                        Delete
+                                </button>
                             </form>
                             <form action="./roombookedit.php" method="POST">
                                 <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <button type="submit"   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">Edit</button>
+                                <button
+                                        type="submit"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                                        Edit
+                                </button>
                             </form>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
+                <?php if (isset($_SESSION['success_msg'])): ?>
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4">
+                <?php 
+                    echo $_SESSION['success_msg']; 
+                    unset($_SESSION['success_msg']);
+                ?>
+            </div>
+        <?php endif; ?>
+                <?php if (isset($_SESSION['failure_msg'])): ?>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
+                <?php 
+                    echo $_SESSION['failure_msg']; 
+                    unset($_SESSION['failure_msg']);
+                ?>
+            </div>
+        <?php endif; ?>
     </div>
 </body>
 <script src="./javascript/roombook.js"></script>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure to delete it?");
+    }
+</script>
 </html>
