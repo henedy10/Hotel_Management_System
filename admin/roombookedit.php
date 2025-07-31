@@ -1,3 +1,20 @@
+<?php 
+require "./roombookupdate.php";
+if($_SERVER['REQUEST_METHOD']=="POST"&&isset($_POST['edit'])){
+$_SESSION['id']=$_POST['id'];
+$id=$_SESSION['id'];
+
+$sql_select_booked_room="SELECT * FROM room_booking WHERE id=?";
+$stmt=$conn->prepare($sql_select_booked_room);
+$stmt->bind_param("i",$id);
+$stmt->execute();
+$result=$stmt->get_result();
+$row=$result->fetch_assoc();
+$_SESSION['row']=$row;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +56,7 @@
 </head>
 <body>
     <div id="editpanel">
-        <form method="POST" class="guestdetailpanelform">
+        <form method="POST"  action="./roombookupdate.php"  class="guestdetailpanelform">
             <div class="head">
                 <h3>EDIT RESERVATION</h3>
                 <a href="./roombook.php"><i class="fa-solid fa-circle-xmark"></i></a>
@@ -47,32 +64,58 @@
             <div class="middle">
                 <div class="guestinfo">
                     <h4>Guest information</h4>
-                    <input type="text" name="Name" placeholder="Enter Full name" value="">
-                    <input type="email" name="Email" placeholder="Enter Email" value="">
+                    <input type="text" name="EditName" placeholder="Enter Full name" value="<?php echo $_SESSION['row']['guest_name'] ?>" >
+                    <input type="email" name="EditEmail" placeholder="Enter Email" value="<?php echo $_SESSION['row']['guest_email'] ?>" >
 
-                    <input type="text" name="Phone" placeholder="Enter Phoneno"  value="">
+                    <input type="text" name="EditPhone" placeholder="Enter Phoneno" value="<?php echo $_SESSION['row']['guest_phone'] ?>"  >
+                    <?php if (isset($_SESSION['errors_guest_info'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4 w-full">
+                            <?php 
+                                foreach ($_SESSION['errors_edit_guest_info'] as $error) {
+                                    echo "<p>$error</p>";
+                                }
+                                unset($_SESSION['errors_edit_guest_info']);
+                            ?>
+                        </div>
+                    <?php endif; ?>  
+                    <?php if (isset($_SESSION['success_edit_msg'])): ?>
+                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4 w-full">
+                            <?php 
+                                echo $_SESSION['success_edit_msg']; 
+                                unset($_SESSION['success_edit_msg']);
+                            ?>
+                        </div>
+                    <?php endif; ?>                   
+                    <?php if (isset($_SESSION['edit_account_exist_msg'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4 w-full">
+                            <?php 
+                                echo $_SESSION['edit_account_exist_msg']; 
+                                unset($_SESSION['edit_account_exist_msg']);
+                            ?>
+                        </div>
+                    <?php endif; ?>                     
                 </div>
 
                 <div class="line"></div>
 
                 <div class="reservationinfo">
                     <h4>Reservation information</h4>
-                    <select name="RoomType" class="selectinput">
-						<option value selected >Type Of Room</option>
+                    <select name="EditRoomType" class="selectinput">
+						<option value="<?php echo $_SESSION['row']['room_type'] ?>" selected ><?php echo $_SESSION['row']['room_type'] ?> </option>
                         <option value="Superior Room">SUPERIOR ROOM</option>
                         <option value="Deluxe Room">DELUXE ROOM</option>
 						<option value="Guest House">GUEST HOUSE</option>
 						<option value="Single Room">SINGLE ROOM</option>
                     </select>
-                    <select name="Bed" class="selectinput">
-						<option value selected >Bedding Type</option>
+                    <select name="EditBed" class="selectinput">
+						<option value="<?php echo $_SESSION['row']['bed_type'] ?>" selected ><?php echo $_SESSION['row']['bed_type'] ?></option>
                         <option value="Single">Single</option>
                         <option value="Double">Double</option>
 						<option value="Triple">Triple</option>
                         <option value="Quad">Quad</option>
                     </select>
-                    <select name="Meal" class="selectinput">
-						<option value selected >Meal</option>
+                    <select name="EditMeal" class="selectinput">
+						<option value="<?php echo $_SESSION['row']['meal'] ?>" selected><?php echo $_SESSION['row']['meal'] ?></option>
                         <option value="Room only">Room only</option>
                         <option value="Breakfast">Breakfast</option>
 						<option value="Half Board">Half Board</option>
@@ -81,13 +124,23 @@
                     <div class="datesection">
                         <span>
                             <label for="cin"> Check-In</label>
-                            <input name="cin" type ="date" value="">
+                            <input name="Editcin" type ="date" value="<?php echo $_SESSION['row']['check_in'] ?>" >
                         </span>
                         <span>
                             <label for="cout"> Check-Out</label>
-                            <input name="cout" type ="date" value="">
+                            <input name="Editcout" type ="date" value="<?php echo $_SESSION['row']['check_out'] ?>" >
                         </span>
                     </div>
+                    <?php if (isset($_SESSION['errors_edit_reservation_info'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4 w-full">
+                            <?php 
+                                foreach ($_SESSION['errors_edit_reservation_info'] as $error) {
+                                    echo "<p>$error</p>";
+                                }
+                                unset($_SESSION['errors_edit_reservation_info']);
+                            ?>
+                        </div>
+                    <?php endif; ?>                     
                 </div>
             </div>
             <div class="footer">

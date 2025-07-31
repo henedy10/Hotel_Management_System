@@ -25,10 +25,6 @@ $result=$conn->query($sql_room_booked);
 </head>
 
 <body>
-    <div class="searchsection">
-        <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-    </div>
-
     <div class="roombooktable" class="table-responsive-xl">
         <table class="table table-bordered" id="table-data">
             <thead>
@@ -76,6 +72,7 @@ $result=$conn->query($sql_room_booked);
                                 <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
                                 <button
                                         type="submit"
+                                        name="edit"
                                         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
                                         Edit
                                 </button>

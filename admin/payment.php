@@ -15,30 +15,23 @@
 
 </head>
 <body>
-	<div class="searchsection">
-        <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-    </div>
-
     <div class="roombooktable" class="table-responsive-xl">
 
         <table class="table table-bordered" id="table-data">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Room Type</th>
                     <th scope="col">Bed Type</th>
                     <th scope="col">Check In</th>
                     <th scope="col">Check Out</th>
 					<th scope="col">No of Day</th>
-                    <th scope="col">No of Room</th>
 					<th scope="col">Meal Type</th>
                     <th scope="col">Room Rent</th>
                     <th scope="col">Bed Rent</th>
                     <th scope="col">Meals</th>
 					<th scope="col">Total Bill</th>
                     <th scope="col">Action</th>
-                    <!-- <th>Delete</th> -->
                 </tr>
             </thead>
 
