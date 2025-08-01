@@ -1,6 +1,12 @@
 <?php 
-if(isset($_POST['book']))
-    header("Location: ./user_room_book/roombookconfirm.php");
+session_start();
+require "./database/config.php";
+if(isset($_POST['book'])){
+  header("Location: ./user_room_book/roombookconfirm.php");
+}
+
+$sql_select_all_rooms="SELECT distinct(room_type) FROM rooms";
+$result=$conn->query($sql_select_all_rooms);
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +76,11 @@ if(isset($_POST['book']))
         <div class="ourroom">
           <h1 class="head">≼ Our room ≽</h1>
           <div class="roomselect">
+            <?php while($row=$result->fetch_assoc()): ?>
             <div class="roombox">
               <div class="hotelphoto h1"></div>
               <div class="roomdata">
-                <h2>Superior Room</h2>
+                <h2><?php echo $row['room_type'] ?></h2>
                 <div class="services">
                   <i class="fa-solid fa-wifi"></i>
                   <i class="fa-solid fa-burger"></i>
@@ -84,42 +91,7 @@ if(isset($_POST['book']))
                 <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
               </div>
             </div>
-            <div class="roombox">
-              <div class="hotelphoto h2"></div>
-              <div class="roomdata">
-                <h2>Delux Room</h2>
-                <div class="services">
-                  <i class="fa-solid fa-wifi"></i>
-                  <i class="fa-solid fa-burger"></i>
-                  <i class="fa-solid fa-spa"></i>
-                  <i class="fa-solid fa-dumbbell"></i>
-                </div>
-                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
-              </div>
-            </div>
-            <div class="roombox">
-              <div class="hotelphoto h3"></div>
-              <div class="roomdata">
-                <h2>Guest Room</h2>
-                <div class="services">
-                  <i class="fa-solid fa-wifi"></i>
-                  <i class="fa-solid fa-burger"></i>
-                  <i class="fa-solid fa-spa"></i>
-                </div>
-                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
-              </div>
-            </div>
-            <div class="roombox">
-              <div class="hotelphoto h4"></div>
-              <div class="roomdata">
-                <h2>Single Room</h2>
-                <div class="services">
-                  <i class="fa-solid fa-wifi"></i>
-                  <i class="fa-solid fa-burger"></i>
-                </div>
-                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
-              </div>
-            </div>
+            <?php endwhile; ?>
           </div>
         </div>
       </form>

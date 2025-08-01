@@ -1,5 +1,11 @@
 <?php
 require "./book_room_by_guest.php";
+
+$sql_select_all_rooms="SELECT distinct(room_type) FROM rooms";
+$result_all_rooms=$conn->query($sql_select_all_rooms);
+
+$sql_select_all_beds="SELECT distinct(bed_type) FROM rooms";
+$result_all_beds=$conn->query($sql_select_all_beds);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,17 +69,15 @@ require "./book_room_by_guest.php";
                     <h4>Reservation information</h4>
                     <select name="RoomType" class="selectinput">
                         <option value selected >Type Of Room</option>
-                        <option value="Superior Room">SUPERIOR ROOM</option>
-                        <option value="Deluxe Room">DELUXE ROOM</option>
-                        <option value="Guest House">GUEST HOUSE</option>
-                        <option value="Single Room">SINGLE ROOM</option>
+                        <?php while($row_rooms=$result_all_rooms->fetch_assoc()): ?>
+                        <option value="<?php echo $row_rooms['room_type'] ?>"><?php echo $row_rooms['room_type'] ?></option>
+                        <?php endwhile; ?>
                     </select>
                     <select name="Bed" class="selectinput">
                         <option value selected >Bedding Type</option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option>
-                        <option value="Triple">Triple</option>
-                        <option value="Quad">Quad</option>
+                        <?php while($row_beds=$result_all_beds->fetch_assoc()): ?>
+                        <option value="<?php echo $row_beds['bed_type'] ?>"><?php echo $row_beds['bed_type'] ?></option>
+                        <?php endwhile; ?>
                     </select>
                     <select name="Meal" class="selectinput">
                         <option value selected >Meal</option>
