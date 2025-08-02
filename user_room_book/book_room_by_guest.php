@@ -56,24 +56,33 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors_reservation_info'])&&empty($_SESSION['errors_guest_info'])&&empty($_SESSION['account_exist_msg'])){
-        $sql_save_order="INSERT INTO room_booking(guest_name,guest_email,guest_phone,room_type,bed_type,meal,check_in,check_out) VALUES (?,?,?,?,?,?,?,?)";
-        $stmt=$conn->prepare($sql_save_order);
-        $stmt->bind_param("ssssssss",
-            $guest_name,
-            $guest_email,
-            $guest_phone,
-            $guest_room_selected,
-            $guest_bed_selected,
-            $guest_meal_selected,
-            $check_in,
-            $check_out
-        );
-        if($stmt->execute()){
-            $_SESSION['success_msg']="Your order is submission successfully";
+        $sql_check_order="SELECT * FROM rooms WHERE room_type=? AND bed_type=?";
+        $stmt_sql_check_order=$conn->prepare($sql_check_order);
+        $stmt_sql_check_order->bind_param("ss",$guest_room_selected,$guest_bed_selected);
+        $stmt_sql_check_order->execute();
+        $result_check_order=$stmt_sql_check_order->get_result();
+        if($result_check_order->num_rows<=0){
+            $_SESSION['check_order']="This order is not available now";
         }else{
-            echo "error : ".$stmt->error;
+            $sql_save_order="INSERT INTO room_booking(guest_name,guest_email,guest_phone,room_type,bed_type,meal,check_in,check_out) VALUES (?,?,?,?,?,?,?,?)";
+            $stmt=$conn->prepare($sql_save_order);
+            $stmt->bind_param("ssssssss",
+                $guest_name,
+                $guest_email,
+                $guest_phone,
+                $guest_room_selected,
+                $guest_bed_selected,
+                $guest_meal_selected,
+                $check_in,
+                $check_out
+            );
+            if($stmt->execute()){
+                $_SESSION['success_msg']="Your order is submission successfully";
+            }else{
+                echo "error : ".$stmt->error;
+            }
+            $stmt->close();
         }
-        $stmt->close();
     }
     $conn->close();
 

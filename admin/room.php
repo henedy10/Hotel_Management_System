@@ -35,6 +35,8 @@ $result=$conn->query($sql);
                     <option value="Superior Room">Superior Room</option>
                     <!-- زود اختيارات لو حابب -->
                 </select>
+                <label for="room_rent" class="block text-sm font-medium text-gray-700 mb-1">Room Rent</label>
+                <input type="number" name="room_rent" id="room_rent" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" placeholder="Input Room Rent">
             </div>
 
             <!-- Bed Type Select -->
@@ -48,6 +50,8 @@ $result=$conn->query($sql);
                     <option value="Quad">Quad</option>
                     <!-- زود اختيارات لو حابب -->
                 </select>
+                <label for="bed_rent" class="block text-sm font-medium text-gray-700 mb-1">Bed Rent</label>
+                <input type="number" name="bed_rent" id="bed_rent" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" placeholder="Input Bed Rent">                
             </div>
 
             <!-- Submit Button -->

@@ -4,7 +4,7 @@ require "./book_room_by_guest.php";
 $sql_select_all_rooms="SELECT distinct(room_type) FROM rooms";
 $result_all_rooms=$conn->query($sql_select_all_rooms);
 
-$sql_select_all_beds="SELECT distinct(bed_type) FROM rooms";
+$sql_select_all_beds="SELECT bed_type,room_type FROM rooms GROUP BY bed_type";
 $result_all_beds=$conn->query($sql_select_all_beds);
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ $result_all_beds=$conn->query($sql_select_all_beds);
 </head>
 
 <body>
-      <div>
+    <div>
         <form action="./book_room_by_guest.php" method="POST" class="guestdetailpanelform">
             <div class="head">
                 <h3>RESERVATION</h3>
@@ -62,6 +62,14 @@ $result_all_beds=$conn->query($sql_select_all_beds);
                             ?>
                         </div>
                     <?php endif; ?>                   
+                    <?php if (isset($_SESSION['check_order'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4 w-full">
+                            <?php 
+                                echo $_SESSION['check_order']; 
+                                unset($_SESSION['check_order']);
+                            ?>
+                        </div>
+                    <?php endif; ?>                   
                 </div>
                 <div class="line"></div>
 
@@ -76,7 +84,7 @@ $result_all_beds=$conn->query($sql_select_all_beds);
                     <select name="Bed" class="selectinput">
                         <option value selected >Bedding Type</option>
                         <?php while($row_beds=$result_all_beds->fetch_assoc()): ?>
-                        <option value="<?php echo $row_beds['bed_type'] ?>"><?php echo $row_beds['bed_type'] ?></option>
+                        <option value="<?php echo $row_beds['bed_type'] ?>"><?php echo $row_beds['bed_type'] . " =>" .($row_beds['room_type']) ?></option>
                         <?php endwhile; ?>
                     </select>
                     <select name="Meal" class="selectinput">
