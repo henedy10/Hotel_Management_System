@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +19,6 @@
     <div id="mobileview">
         <h5>Admin panel doesn't show in mobile view</h4>
     </div>
-  
     <!-- nav bar -->
     <nav class="uppernav">
         <div class="logo">
@@ -39,6 +36,7 @@
             <li class="pagebtn"><img src="../image/icon/wallet.png">&nbsp&nbsp&nbsp Payment</li>            
             <li class="pagebtn"><img src="../image/icon/bedroom.png">&nbsp&nbsp&nbsp Rooms</li>
             <li class="pagebtn"><img src="../image/icon/staff.png">&nbsp&nbsp&nbsp Staff</li>
+            <li class="pagebtn"><img src="../image/meal.jpg">&nbsp&nbsp&nbsp Meals</li>
         </ul>
     </nav>
 
@@ -49,6 +47,7 @@
         <iframe class="frames frame3" src="./payment.php" frameborder="0"></iframe>
         <iframe class="frames frame4" src="./room.php" frameborder="0"></iframe>
         <iframe class="frames frame4" src="./staff.php" frameborder="0"></iframe>
+        <iframe class="frames frame4" src="./meal.php" frameborder="0"></iframe>
     </div>
 </body>
 
