@@ -1,3 +1,13 @@
+<?php 
+session_start();
+require "../database/config.php";
+$sql_select_room_booked="SELECT * FROM room_booking";
+$result=$conn->query($sql_select_room_booked);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 	<!-- css for table and search bar -->
 	<link rel="stylesheet" href="css/roombook.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 <body>
@@ -29,13 +40,55 @@
 					<th scope="col">Meal Type</th>
                     <th scope="col">Room Rent</th>
                     <th scope="col">Bed Rent</th>
-                    <th scope="col">Meals</th>
+                    <th scope="col">Meals Rent</th>
 					<th scope="col">Total Bill</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-gray-800 text-base">
+                    <?php while($row=$result->fetch_assoc()): ?>
+                        <?php
+                            $check_in=new DateTime($row['check_in']);
+                            $check_out=new DateTime($row['check_out']);
+                            $diff=$check_out->diff($check_in);
+                            $DaysBetweenThem=$diff->days;
+
+                            // fetch the rent of room and bed 
+
+                            $sql_bed_room_rent="SELECT room_rent,bed_rent FROM rooms WHERE room_type=? AND bed_type=? ";
+                            $stmt_bed_room_rent=$conn->prepare($sql_bed_room_rent);
+                            $stmt_bed_room_rent->bind_param("ss",$row['room_type'],$row['bed_type']);
+                            $stmt_bed_room_rent->execute();
+                            $result_bed_room_rent=$stmt_bed_room_rent->get_result();
+                            $row_bed_room_rent=$result_bed_room_rent->fetch_assoc();
+
+                            // fetch the rent of meal
+
+                            $sql_meal_rent="SELECT price FROM meals WHERE `name`=?";
+                            $stmt_meal_rent=$conn->prepare($sql_meal_rent);
+                            $stmt_meal_rent->bind_param("s",$row['meal']);
+                            $stmt_meal_rent->execute();
+                            $result_meal_rent=$stmt_meal_rent->get_result();
+                            $row_meal_rent=$result_meal_rent->fetch_assoc();
+                        ?>
+                        <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['guest_name'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['room_type'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['bed_type'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_in'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_out'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $DaysBetweenThem ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['meal'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['room_rent']?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['bed_rent'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_meal_rent['price'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_meal_rent['price']+$row_bed_room_rent['bed_rent']+$row_bed_room_rent['room_rent'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300">
+                                #
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
             </tbody>
         </table>
     </div>

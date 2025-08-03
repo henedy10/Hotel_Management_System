@@ -6,6 +6,9 @@ $result_all_rooms=$conn->query($sql_select_all_rooms);
 
 $sql_select_all_beds="SELECT bed_type,room_type FROM rooms GROUP BY bed_type";
 $result_all_beds=$conn->query($sql_select_all_beds);
+
+$sql_select_all_meals="SELECT `name` FROM meals";
+$result_all_meals=$conn->query($sql_select_all_meals);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,10 +92,9 @@ $result_all_beds=$conn->query($sql_select_all_beds);
                     </select>
                     <select name="Meal" class="selectinput">
                         <option value selected >Meal</option>
-                        <option value="Room only">Room only</option>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Half Board">Half Board</option>
-                        <option value="Full Board">Full Board</option>
+                        <?php while($row_meals=$result_all_meals->fetch_assoc()): ?>
+                        <option value="<?php echo $row_meals['name'] ?>"><?php echo $row_meals['name'] ?></option>
+                        <?php endwhile; ?>
                     </select>
                     <div class="datesection">
                         <span>

@@ -28,7 +28,7 @@ $result=$conn->query($sql);
         <form action="./staffadd.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
             <div>
                 <label for="staffname" class="block text-sm font-medium text-gray-700 mb-1">Name :</label>
-                <input type="text" name="staffname" id="staffname" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >
+                <input type="text" name="staffname" placeholder="Enter Name For Staff" id="staffname" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >
             </div>
             <div>
                 <label for="staffrole" class="block text-sm font-medium text-gray-700 mb-1">Role :</label>
