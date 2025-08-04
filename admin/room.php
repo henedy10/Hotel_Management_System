@@ -1,7 +1,7 @@
 <?php 
 require "./roomadd.php";
-$sql="SELECT * FROM rooms";
-$result=$conn->query($sql);
+$sql_select_all_rooms="SELECT * FROM rooms";
+$result=$conn->query($sql_select_all_rooms);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,6 +87,7 @@ $result=$conn->query($sql);
                     <tr>
                         <th class="px-6 py-3 border border-gray-300 text-left">Type Room</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Type Bed</th>
+                        <th class="px-6 py-3 border border-gray-300 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-800 text-base">
@@ -94,6 +95,27 @@ $result=$conn->query($sql);
                         <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['room_type'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_type'])); ?></td>
+                            <td class="px-6 py-4 border border-gray-300">
+                                <div class="flex justify-evenly">
+                                    <form action="./roomdelete.php" method="POST" onsubmit="return confirmDelete();">
+                                        <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                        <button 
+                                                type="submit"
+                                                class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-1">
+                                                Delete
+                                        </button>
+                                    </form>
+                                    <form action="./roomupdate.php" method="POST">
+                                        <input type="hidden" name="id" value="#">
+                                        <button
+                                                type="submit"
+                                                name="edit"
+                                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                                                Edit
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
@@ -101,5 +123,10 @@ $result=$conn->query($sql);
         </div>
     </div>
 </body>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure to delete it?");
+    }
+</script>
 </html>
 

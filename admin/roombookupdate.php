@@ -57,31 +57,40 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['guestdetailedit'])){
     }
 
     if(empty($_SESSION['errors_edit_reservation_info'])&&empty($_SESSION['errors_edit_guest_info'])&&empty($_SESSION['edit_account_exist_msg'])){
-        $sql_edit_order="UPDATE room_booking SET 
-            guest_name=?,
-            guest_email=?,
-            guest_phone=?,
-            room_type=?,
-            bed_type=?,
-            meal=?,
-            check_in=?,
-            check_out=?
-        ";
-        $stmt=$conn->prepare($sql_edit_order);
-        $stmt->bind_param("ssssssss",
-            $guest_name,
-            $guest_email,
-            $guest_phone,
-            $guest_room_selected,
-            $guest_bed_selected,
-            $guest_meal_selected,
-            $check_in,
-            $check_out
-        );
-        if($stmt->execute()){
-            $_SESSION['success_edit_msg']="Your order is updated successfully";
+        $sql_check_exist_order="SELECT room_type,bed_type FROM rooms WHERE room_type=? AND bed_type=? ";
+        $stmt=$conn->prepare($sql_check_exist_order);
+        $stmt->bind_param("ss",$guest_room_selected,$guest_bed_selected);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        if($result->num_rows>0){
+            $sql_edit_order="UPDATE room_booking SET 
+                guest_name=?,
+                guest_email=?,
+                guest_phone=?,
+                room_type=?,
+                bed_type=?,
+                meal=?,
+                check_in=?,
+                check_out=?
+            ";
+            $stmt=$conn->prepare($sql_edit_order);
+            $stmt->bind_param("ssssssss",
+                $guest_name,
+                $guest_email,
+                $guest_phone,
+                $guest_room_selected,
+                $guest_bed_selected,
+                $guest_meal_selected,
+                $check_in,
+                $check_out
+            );
+            if($stmt->execute()){
+                $_SESSION['success_edit_msg']="Your order is updated successfully";
+            }else{
+                echo "error : ".$stmt->error;
+            }
         }else{
-            echo "error : ".$stmt->error;
+            $_SESSION['check_exist_order']="This order is not available now ";
         }
     }
 

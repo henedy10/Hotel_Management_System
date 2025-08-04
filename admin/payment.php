@@ -3,9 +3,6 @@ session_start();
 require "../database/config.php";
 $sql_select_room_booked="SELECT * FROM room_booking";
 $result=$conn->query($sql_select_room_booked);
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +39,6 @@ $result=$conn->query($sql_select_room_booked);
                     <th scope="col">Bed Rent</th>
                     <th scope="col">Meals Rent</th>
 					<th scope="col">Total Bill</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
 
@@ -80,12 +76,16 @@ $result=$conn->query($sql_select_room_booked);
                             <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_out'] ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo $DaysBetweenThem ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo $row['meal'] ?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['room_rent']?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['bed_rent'] ?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_meal_rent['price'] ?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_meal_rent['price']+$row_bed_room_rent['bed_rent']+$row_bed_room_rent['room_rent'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['room_rent']??"This room no longer exists."?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_bed_room_rent['bed_rent']??"This bed no longer exists." ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row_meal_rent['price']??"This meal no longer exists." ?></td>
                             <td class="px-6 py-4 border border-gray-300">
-                                #
+                                <?php
+                                if(isset($row_bed_room_rent['room_rent'])&&isset($row_bed_room_rent['bed_rent']))
+                                    echo $row_meal_rent['price']+$row_bed_room_rent['bed_rent']+$row_bed_room_rent['room_rent'] ;
+                                else
+                                    echo "_";
+                                ?>
                             </td>
                         </tr>
                     <?php endwhile; ?>

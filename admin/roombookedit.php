@@ -140,7 +140,15 @@ $_SESSION['row']=$row;
                                 unset($_SESSION['errors_edit_reservation_info']);
                             ?>
                         </div>
-                    <?php endif; ?>                     
+                    <?php endif; ?> 
+                    <?php if (isset($_SESSION['check_exist_order'])): ?>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4 w-full">
+                            <?php 
+                                echo $_SESSION['check_exist_order']; 
+                                unset($_SESSION['check_exist_order']);
+                            ?>
+                        </div>
+                    <?php endif; ?>                           
                 </div>
             </div>
             <div class="footer">

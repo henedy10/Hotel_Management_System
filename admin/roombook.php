@@ -60,23 +60,25 @@ $result=$conn->query($sql_room_booked);
                         <td class="px-6 py-4 border border-gray-300"><?php echo $row['check_out'] ?></td>
                         <td class="px-6 py-4 border border-gray-300"><?php echo $DaysBetweenThem ?></td>
                         <td class="px-6 py-4 border border-gray-300">
-                            <form action="./roombookdelete.php" method="POST" onsubmit="return confirmDelete();">
-                                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <button 
-                                        type="submit"
-                                        class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 mb-1">
-                                        Delete
-                                </button>
-                            </form>
-                            <form action="./roombookedit.php" method="POST">
-                                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <button
-                                        type="submit"
-                                        name="edit"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
-                                        Edit
-                                </button>
-                            </form>
+                            <div class="flex justify-between">
+                                <form action="./roombookdelete.php" method="POST" onsubmit="return confirmDelete();">
+                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                    <button 
+                                            type="submit"
+                                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-2 rounded-lg shadow-md transition duration-300 mb-1">
+                                            Delete
+                                    </button>
+                                </form>
+                                <form action="./roombookedit.php" method="POST">
+                                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                                    <button
+                                            type="submit"
+                                            name="edit"
+                                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-2 rounded-lg shadow-md transition duration-300">
+                                            Edit
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php endwhile; ?>
