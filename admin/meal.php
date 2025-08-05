@@ -46,6 +46,14 @@ $result=$conn->query($sql_select_meals);
                 ?>
             </div>
         <?php endif; ?>
+        <?php if (isset($_SESSION['success_edit_msg'])): ?>
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4">
+                <?php 
+                    echo $_SESSION['success_edit_msg']; 
+                    unset($_SESSION['success_edit_msg']);
+                ?>
+            </div>
+        <?php endif; ?>
         <?php if (isset($_SESSION['failure_msg_meal'])): ?>
             <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
                 <?php 
@@ -89,8 +97,8 @@ $result=$conn->query($sql_select_meals);
                                             Delete
                                         </button>
                                     </form>
-                                    <form action="#" method="POST">
-                                        <input type="hidden" name="id" value="#">
+                                    <form action="./mealedit.php" method="POST">
+                                        <input type="hidden" name="id_edit" value="<?php echo $row['id'] ?>">
                                         <button
                                             type="submit"
                                             name="edit"

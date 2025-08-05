@@ -3,11 +3,11 @@ session_start();
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
-    $_SESSION['id_edit']=$_POST['id_edit'];
+    $_SESSION['id_room_edit']=$_POST['id_edit'];
 }
 $sql_select_room='SELECT * FROM rooms WHERE id=?';
 $stmt=$conn->prepare($sql_select_room);
-$stmt->bind_param("i",$_SESSION['id_edit']);
+$stmt->bind_param("i",$_SESSION['id_room_edit']);
 $stmt->execute();
 $result=$stmt->get_result();
 $row=$result->fetch_assoc();
@@ -72,14 +72,6 @@ $row=$result->fetch_assoc();
                 </button>
             </div>
         </form>
-        <!-- <?php if (isset($_SESSION['success_edit_msg'])): ?>
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4">
-                <?php 
-                    echo $_SESSION['success_edit_msg']; 
-                    unset($_SESSION['success_edit_msg']);
-                ?>
-            </div>
-        <?php endif; ?> -->
         <?php if (isset($_SESSION['failure_edit_msg'])): ?>
             <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
                 <?php 
