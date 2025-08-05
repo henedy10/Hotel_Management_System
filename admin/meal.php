@@ -78,7 +78,7 @@ $result=$conn->query($sql_select_meals);
                     <?php while($row=$result->fetch_assoc()): ?>                    
                         <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
                             <td class="px-6 py-4 border border-gray-300"><?php echo $row['name'] ?></td>
-                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['price'] ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo $row['price']!=0?$row['price']:"Free" ?></td>
                             <td class="px-6 py-4 border border-gray-300">
                                 <div class="flex justify-evenly">
                                     <form action="./mealdelete.php" method="POST" onsubmit="return confirmDelete();">
@@ -89,7 +89,7 @@ $result=$conn->query($sql_select_meals);
                                             Delete
                                         </button>
                                     </form>
-                                    <form action="./mealupdate.php" method="POST">
+                                    <form action="#" method="POST">
                                         <input type="hidden" name="id" value="#">
                                         <button
                                             type="submit"

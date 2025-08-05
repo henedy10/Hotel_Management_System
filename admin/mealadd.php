@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $_SESSION['errors_meal']['name']="Name of Meal is required";
     }
     
-    if(is_null($MealPrice)){
+    if(!$MealPrice && $MealPrice!=0){
         $_SESSION['errors_meal']['price']="Price of Meal is required";
     }else if ($MealPrice<0){
         $_SESSION['errors_meal']['price']="Price of Meal Must be greater than or equal Zero";        

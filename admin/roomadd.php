@@ -14,9 +14,13 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
     if(empty($rentroom)){
         $_SESSION['errors']['rentroom']="You must input value for rent room";
+    }else if(!preg_match('/^[0-9]+$/',$rentroom)){
+        $_SESSION['errors']['rentroom']="Numbers is allowed only for rent room!";
     }
     if(empty($typebed)){
         $_SESSION['errors']['rentbed']="You must input value for rent bed";
+    }else if(!preg_match('/^[0-9]+$/',$rentbed)){
+        $_SESSION['errors']['rentbed']="Numbers is allowed only for rent bed!";
     }
 
     if(empty($_SESSION['errors'])){

@@ -86,7 +86,9 @@ $result=$conn->query($sql_select_all_rooms);
                 <thead class="bg-green-200 text-gray-700 text-sm uppercase">
                     <tr>
                         <th class="px-6 py-3 border border-gray-300 text-left">Type Room</th>
+                        <th class="px-6 py-3 border border-gray-300 text-left">Room Rent</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Type Bed</th>
+                        <th class="px-6 py-3 border border-gray-300 text-left">Bed Rent</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Action</th>
                     </tr>
                 </thead>
@@ -94,7 +96,9 @@ $result=$conn->query($sql_select_all_rooms);
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr class="odd:bg-green-50 even:bg-green-100 hover:bg-green-200 transition-colors">
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['room_type'])); ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['room_rent'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_type'])); ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_rent'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300">
                                 <div class="flex justify-evenly">
                                     <form action="./roomdelete.php" method="POST" onsubmit="return confirmDelete();">
@@ -105,8 +109,8 @@ $result=$conn->query($sql_select_all_rooms);
                                                 Delete
                                         </button>
                                     </form>
-                                    <form action="./roomupdate.php" method="POST">
-                                        <input type="hidden" name="id" value="#">
+                                    <form action="./roomedit.php" method="POST">
+                                        <input type="hidden" name="id_edit" value="<?php echo $row['id'] ?>">
                                         <button
                                                 type="submit"
                                                 name="edit"
