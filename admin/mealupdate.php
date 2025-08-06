@@ -17,27 +17,22 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors_edit'])){
-        $sql_check_meal_exist="SELECT `name` FROM meals WHERE `name`=?";
-        $stmt=$conn->prepare($sql_check_meal_exist);
-        $stmt->bind_param("s",$MealNameEdit); 
-        $stmt->execute();
-        $result=$stmt->get_result();
-        if($result->num_rows>0){
-            $_SESSION['errors_edit']['mealname']="This meal is exist already!";
-            header("Location: ./mealedit.php");
-            exit();
-        }else{
+        try{
             $sql_update_meal="UPDATE meals SET `name`=? , price=? WHERE id=?";
             $stmt=$conn->prepare($sql_update_meal);
             $stmt->bind_param("ssi",$MealNameEdit,$MealPriceEdit,$id_edit);
-            if($stmt->execute()){
-                $_SESSION['success_edit_msg']="Meal is updated successfully!";
-                header("Location: ./meal.php");
-                exit();
-            }else{
-                $_SESSION['failure_edit_msg']="There is an error . $stmt->error";
-                header("Location: ./mealedit.php");
+            $stmt->execute();
+            $_SESSION['success_edit_msg']="Meal is updated successfully!";
+            header("Location: ./meal.php");
+            exit();
+        }catch(mysqli_sql_exception $e){
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                $_SESSION['failure_edit_msg']="This meal is exist already!";
+            } else {
+                $_SESSION['failure_edit_msg']="There is an error ".$stmt->error;
             }
+                header("Location: ./mealedit.php");
+                exit();
         }
     }else{
         header("Location: ./mealedit.php");

@@ -15,23 +15,22 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors_edit'])){
-        $sql_check_staff_name_exist="SELECT * FROM staff WHERE `name`=?";
-        $stmt=$conn->prepare($sql_check_staff_name_exist);
-        $stmt->bind_param("s",$NameStaffEdit);
-        $stmt->execute();
-        $result=$stmt->get_result();
-        if($result->num_rows>0){
-            $_SESSION['errors_edit']['staff_name']="This Name is exist already!";
-            header("Location: ./staffedit.php");
-        }else{
+        try{
             $sql_update_staff="UPDATE staff SET `name`=? , `role`=? WHERE id=?";
             $stmt=$conn->prepare($sql_update_staff);
             $stmt->bind_param("ssi",$NameStaffEdit,$RoleStaffEdit,$id_update);
-            if($stmt->execute()){
-                $_SESSION['success_edit_msg']="The staff has been updated successfully.";
-                header("Location: ./staff.php");
-                exit;
+            $stmt->execute();
+            $_SESSION['success_edit_msg']="The staff has been updated successfully.";
+            header("Location: ./staff.php");
+            exit();
+        }catch(mysqli_sql_exception $e){
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                $_SESSION['failure_edit_msg']="This staff is exist already!";
+            } else {
+                $_SESSION['failure_edit_msg']="There is an error ".$stmt->error;
             }
+                header("Location: ./staffedit.php");
+                exit();
         }
     }else{
         header("Location: ./staffedit.php");

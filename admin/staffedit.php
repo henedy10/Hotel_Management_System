@@ -56,6 +56,14 @@ $row=$result->fetch_assoc();
                 <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded" name="editstaff">edit Staff</button>
             </div>
         </form>
+        <?php if (isset($_SESSION['failure_edit_msg'])): ?>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
+                <?php 
+                    echo $_SESSION['failure_edit_msg']; 
+                    unset($_SESSION['failure_edit_msg']);
+                ?>
+            </div>
+        <?php endif; ?>
 
         <?php if (isset($_SESSION['errors_edit'])): ?>
             <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4">
