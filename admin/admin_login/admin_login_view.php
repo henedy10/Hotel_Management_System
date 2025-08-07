@@ -65,6 +65,7 @@ require "admin_login.php";
                 </div>
                 <!-- Employee Login -->
                 <form class="employee_login authsection active" id="employeelogin" action="admin_login.php" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                     <div class="form-floating">
                         <input type="email" class="form-control" name="Emp_Email" placeholder=" ">
                         <label for="floatingInput">Email</label>

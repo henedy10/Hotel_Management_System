@@ -34,6 +34,7 @@ $row=$result->fetch_assoc();
         <h2 class="text-2xl font-bold bg-green-500 text-white text-center py-4">Update Room List</h2>
 
         <form action="./roomupdate.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
+            <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
             <!-- Room Type Select -->
             <div>
                 <label for="room_type" class="block text-sm font-medium text-gray-700 mb-1">Room Type</label>

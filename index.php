@@ -67,6 +67,7 @@ require "user_login.php";
                 </div>
                 <form class="user_login authsection active" id="userlogin" action="user_login.php" method="POST">
                     <div class="form-floating">
+                        <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                         <input type="text" class="form-control" name="Username"  placeholder=" ">
                         <label for="Username">Username</label>
                     </div>

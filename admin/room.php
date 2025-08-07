@@ -24,7 +24,8 @@ $result=$conn->query($sql_select_all_rooms);
         <h2 class="text-2xl font-bold bg-green-500 text-white text-center py-4">Room List</h2>
 
         <form action="./roomadd.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
-            <!-- Room Type Select -->
+            <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
+        <!-- Room Type Select -->
             <div>
                 <label for="room_type" class="block text-sm font-medium text-gray-700 mb-1">Room Type</label>
                 <select name="room_type" id="room_type" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400">
@@ -102,6 +103,7 @@ $result=$conn->query($sql_select_all_rooms);
                             <td class="px-6 py-4 border border-gray-300">
                                 <div class="flex justify-evenly">
                                     <form action="./roomdelete.php" method="POST" onsubmit="return confirmDelete();">
+                                        <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                                         <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
                                         <button 
                                                 type="submit"
@@ -110,6 +112,7 @@ $result=$conn->query($sql_select_all_rooms);
                                         </button>
                                     </form>
                                     <form action="./roomedit.php" method="POST">
+                                        <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                                         <input type="hidden" name="id_edit" value="<?php echo $row['id'] ?>">
                                         <button
                                                 type="submit"

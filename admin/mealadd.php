@@ -1,11 +1,15 @@
 <?php
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $MealName = htmlspecialchars(strip_tags($_POST['mealname']));
     $MealPrice= $_POST['mealprice'];
-
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     if(empty($MealName)){
         $_SESSION['errors_meal']['name']="Name of Meal is required";
     }

@@ -1,11 +1,16 @@
 <?php 
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $typeroom=$_POST['room_type'];
     $typebed=$_POST['bed_type'];
     $rentroom=$_POST['room_rent'];
     $rentbed=$_POST['bed_rent'];
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     if(empty($typeroom)){
         $_SESSION['errors']['typeroom']="You must select value for room";
     }

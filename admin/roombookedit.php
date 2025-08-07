@@ -54,6 +54,7 @@ $row=$result->fetch_assoc();
 <body>
     <div id="editpanel">
         <form method="POST"  action="./roombookupdate.php"  class="guestdetailpanelform">
+            <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
             <div class="head">
                 <h3>EDIT RESERVATION</h3>
                 <a href="./roombook.php"><i class="fa-solid fa-circle-xmark"></i></a>

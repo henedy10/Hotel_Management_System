@@ -1,12 +1,24 @@
 <?php 
-session_start();
+require "../../csrf.php";
 require "../../database/config.php";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
     $employee_email=htmlspecialchars(strip_tags($_POST['Emp_Email']));
     $employee_password=htmlspecialchars(strip_tags($_POST['Emp_Password']));
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
+    $_SESSION['id_staff']=$_POST['id_edit'];
 
+$sql_select_staff="SELECT * FROM staff WHERE id=?";
+$stmt=$conn->prepare($sql_select_staff);
+$stmt->bind_param("i",$_SESSION['id_staff']);
+$stmt->execute();
+$result=$stmt->get_result();
+$row=$result->fetch_assoc();
     if(empty($employee_email)){
         $_SESSION['errors']['employee_email_error']="Email is required!";
     }else if(!filter_var($employee_email,FILTER_VALIDATE_EMAIL)){

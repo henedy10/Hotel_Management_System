@@ -1,5 +1,5 @@
 <?php 
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['guestdetailedit'])){
@@ -11,7 +11,11 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['guestdetailedit'])){
     $guest_meal_selected=$_POST['EditMeal'];
     $check_in=$_POST['Editcin'];
     $check_out=$_POST['Editcout'];
-
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     // validation guest information
 
     if(empty($guest_name)){

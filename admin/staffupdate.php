@@ -1,12 +1,16 @@
 <?php
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $id_update=$_POST['edit_id'];
     $NameStaffEdit=htmlspecialchars(strip_tags($_POST['staffnameedit']));
     $RoleStaffEdit=$_POST['staffroleedit'];
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     if(empty($NameStaffEdit)){
         $_SESSION['errors_edit']['staff_name_edit']="Staff Name is required";
     }

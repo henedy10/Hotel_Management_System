@@ -1,8 +1,14 @@
 <?php
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
+
     $_SESSION['id_meal_edit']=$_POST['id_edit'];
 }
     $sql_select_meal='SELECT * FROM meals WHERE id=?';
@@ -34,6 +40,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <h2 class="text-2xl font-bold bg-green-500 text-white text-center py-4">Edit Meal List</h2>  
 
         <form action="./mealupdate.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
+            <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
             <div>
                 <label for="mealname" class="block text-sm font-medium text-gray-700 mb-1">Name :</label>
                 <input type="text" name="mealnameedit" id="mealname"  value="<?php echo $row['name'] ?>" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >

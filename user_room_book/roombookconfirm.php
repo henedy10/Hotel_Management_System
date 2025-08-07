@@ -29,6 +29,7 @@ $result_all_meals=$conn->query($sql_select_all_meals);
 <body>
     <div>
         <form action="./book_room_by_guest.php" method="POST" class="guestdetailpanelform">
+            <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
             <div class="head">
                 <h3>RESERVATION</h3>
                 <a href="../home.php"><i class="fa-solid fa-circle-xmark"></i></a>

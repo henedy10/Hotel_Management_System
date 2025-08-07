@@ -1,8 +1,13 @@
 <?php 
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     $id=$_POST['id'];
     $sql_delete="DELETE FROM room_booking WHERE id=?";
     $stmt=$conn->prepare($sql_delete);

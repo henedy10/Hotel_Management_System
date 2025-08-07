@@ -62,6 +62,7 @@ $result=$conn->query($sql_room_booked);
                         <td class="px-6 py-4 border border-gray-300">
                             <div class="flex justify-between">
                                 <form action="./roombookdelete.php" method="POST" onsubmit="return confirmDelete();">
+                                    <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                                     <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
                                     <button 
                                             type="submit"
@@ -70,6 +71,7 @@ $result=$conn->query($sql_room_booked);
                                     </button>
                                 </form>
                                 <form action="./roombookedit.php" method="POST">
+                                    <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                                     <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
                                     <button
                                             type="submit"

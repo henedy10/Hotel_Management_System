@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
@@ -7,7 +8,11 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $user_email_signup=htmlspecialchars(strip_tags($_POST['Email_Signup']));
     $user_password_signup=htmlspecialchars(strip_tags($_POST['Password_Signup']));
     $user_confirm_password_signup=htmlspecialchars(strip_tags($_POST['CPassword_Signup']));
-
+    $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
+    
+    if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
+        die("CSRF IS INVALID!");
+    }
     if(empty($user_name_signup)){
         $_SESSION['errors']['user_name_signup']="Username is required!";
     }else if(!preg_match("/^[a-zA-Z0-9\s]+$/",$user_name_signup)){

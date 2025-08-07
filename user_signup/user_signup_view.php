@@ -71,6 +71,7 @@ require "../user_signup/user_signup.php";
                     </div> 
             <div class="flex justify-center">
                 <form class="user_signup" id="usersignup" action="user_signup.php" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                     <div class="form-floating">
                         <input type="text" class="form-control" name="Username_Signup" placeholder=" ">
                         <label for="Username">Username</label>
