@@ -76,7 +76,10 @@ $result=$conn->query($sql_select_all_rooms);
         <div class="ourroom">
           <h1 class="head">≼ Our room ≽</h1>
           <div class="roomselect">
-            <?php while($row=$result->fetch_assoc()): ?>
+            <?php 
+              if(isset($row)): 
+              while($row=$result->fetch_assoc()):
+            ?>
             <div class="roombox">
               <div class="hotelphoto h1"></div>
               <div class="roomdata">
@@ -92,6 +95,11 @@ $result=$conn->query($sql_select_all_rooms);
               </div>
             </div>
             <?php endwhile; ?>
+            <?php 
+              else:
+                echo "<p class= text-red-500> There is no rooms now </p>";
+              endif;
+            ?>
           </div>
         </div>
       </form>
