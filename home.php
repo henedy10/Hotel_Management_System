@@ -77,7 +77,7 @@ $result=$conn->query($sql_select_all_rooms);
           <h1 class="head">≼ Our room ≽</h1>
           <div class="roomselect">
             <?php 
-              if(isset($row)): 
+              if($result->num_rows>0): 
               while($row=$result->fetch_assoc()):
             ?>
             <div class="roombox">

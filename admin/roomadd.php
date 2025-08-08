@@ -29,11 +29,32 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors'])){
-        $sql_add_room="INSERT INTO rooms (room_type,bed_type,room_rent,bed_rent) VALUES (?,?,?,?)";
-        $stmt=$conn->prepare($sql_add_room);
-        $stmt->bind_param("ssii",$typeroom,$typebed,$rentroom,$rentbed);
-        if($stmt->execute()){
-            $_SESSION['success_msg']="The room has been added successfully.";
+        $sql_check_room_exist="SELECT * FROM rooms WHERE room_type=? AND bed_type=?";
+        $stmt=$conn->prepare($sql_check_room_exist);
+        $stmt->bind_param("ss",$typeroom,$typebed);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        if($result->num_rows>0){
+            $row=$result->fetch_assoc();
+            $new_noRooms=++$row['NumberRooms'];
+
+            $sql_increase_noRooms="UPDATE rooms SET NumberRooms=? WHERE id=?";
+            $stmt=$conn->prepare($sql_increase_noRooms);
+            $stmt->bind_param("ii",$new_noRooms,$row['id']);
+            if($stmt->execute()){
+                $_SESSION['success_msg']="The room has been added successfully.";
+            }else{
+                $_SESSION['failure_msg']="There is an error ".$stmt->error;
+            }
+        }else{
+            $sql_add_room="INSERT INTO rooms (room_type,bed_type,room_rent,bed_rent) VALUES (?,?,?,?)";
+            $stmt=$conn->prepare($sql_add_room);
+            $stmt->bind_param("ssii",$typeroom,$typebed,$rentroom,$rentbed);
+            if($stmt->execute()){
+                $_SESSION['success_msg']="The room has been added successfully.";
+            }else{
+                $_SESSION['failure_msg']="There is an error ".$stmt->error;
+            }
         }
     }
     header("Location: ./room.php");

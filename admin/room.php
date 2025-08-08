@@ -1,6 +1,6 @@
 <?php 
 require "./roomadd.php";
-$sql_select_all_rooms="SELECT * FROM rooms";
+$sql_select_all_rooms="SELECT * FROM rooms GROUP BY room_type,bed_type";
 $result=$conn->query($sql_select_all_rooms);
 ?>
 <!DOCTYPE html>
@@ -90,6 +90,7 @@ $result=$conn->query($sql_select_all_rooms);
                         <th class="px-6 py-3 border border-gray-300 text-left">Room Rent</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Type Bed</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Bed Rent</th>
+                        <th class="px-6 py-3 border border-gray-300 text-left">No Rooms</th>
                         <th class="px-6 py-3 border border-gray-300 text-left">Action</th>
                     </tr>
                 </thead>
@@ -100,6 +101,7 @@ $result=$conn->query($sql_select_all_rooms);
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['room_rent'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_type'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['bed_rent'])); ?></td>
+                            <td class="px-6 py-4 border border-gray-300"><?php echo htmlspecialchars(strip_tags($row['NumberRooms'])); ?></td>
                             <td class="px-6 py-4 border border-gray-300">
                                 <div class="flex justify-evenly">
                                     <form action="./roomdelete.php" method="POST" onsubmit="return confirmDelete();">

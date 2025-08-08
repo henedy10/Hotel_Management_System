@@ -1,5 +1,5 @@
 <?php
-session_start();
+require "../csrf.php";
 require "../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
@@ -63,6 +63,12 @@ $row=$result->fetch_assoc();
                 </select>
                 <label for="bed_rent" class="block text-sm font-medium text-gray-700 mb-1">Bed Rent</label>
                 <input type="number" name="bed_rent_edit" id="bed_rent" value="<?php echo $row['bed_rent'] ?>" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" placeholder="Input Bed Rent">                
+            </div>
+
+
+            <div class="flex items-end">
+                <label for="no_rooms" class="block text-sm font-medium text-gray-700 mb-1">No Rooms</label>
+                <input type="number" name="no_rooms_edit" id="no_rooms" min=0 value="<?php echo $row['NumberRooms'] ?>" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >
             </div>
 
             <!-- Submit Button -->

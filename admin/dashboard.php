@@ -5,9 +5,9 @@ $sql_count_staff="SELECT * FROM staff";
 $result_count_staff=$conn->query($sql_count_staff);
 $num_staff=$result_count_staff->num_rows;
 
-$sql_count_room= "SELECT * FROM rooms";
+$sql_count_room= "SELECT SUM(NumberRooms) as num FROM rooms";
 $result_count_room=$conn->query($sql_count_room);
-$num_room=$result_count_room->num_rows;
+$num_room=$result_count_room->fetch_assoc();
 
 $sql_count_room_booked="SELECT * FROM room_booking";
 $result_count_room_booked=$conn->query($sql_count_room_booked);
@@ -36,7 +36,7 @@ $num_room_booked=$result_count_room_booked->num_rows;
     <div class="databox">
       <div class="box roombox">
         <h2>Total Room</h1>  
-        <h1><?php echo $num_room ?></h1>
+        <h1><?php echo $num_room['num'] ?></h1>
       </div>
       <div class="box roombookbox">
         <h2>Total Booked Room</h1>  

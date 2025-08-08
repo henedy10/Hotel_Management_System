@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $BedTypeEdit=$_POST['bed_type_edit'];
     $RoomRentEdit=$_POST['room_rent_edit'];
     $BedRentEdit=$_POST['bed_rent_edit'];
+    $NoRoomsEdit=$_POST['no_rooms_edit'];
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
@@ -31,9 +32,9 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors_edit'])){
-        $sql_update_room="UPDATE rooms SET room_type=? , bed_type=?,room_rent=?,bed_rent=? WHERE id=?";
+        $sql_update_room="UPDATE rooms SET room_type=? , bed_type=?,room_rent=?,bed_rent=?,NumberRooms=? WHERE id=?";
         $stmt=$conn->prepare($sql_update_room);
-        $stmt->bind_param("ssiii",$RoomTypeEdit,$BedTypeEdit,$RoomRentEdit,$BedRentEdit,$id_edit);
+        $stmt->bind_param("ssiiii",$RoomTypeEdit,$BedTypeEdit,$RoomRentEdit,$BedRentEdit,$NoRoomsEdit,$id_edit);
         if($stmt->execute()){
             $_SESSION['success_msg']="Room is updated successfully!";
             header("Location: ./room.php");
