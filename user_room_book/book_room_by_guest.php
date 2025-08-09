@@ -1,6 +1,7 @@
 <?php
 require "../csrf.php";
 require "../database/config.php";
+require "../nobooked_rooms.php";
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $guest_name=htmlspecialchars(strip_tags($_POST['Name']));
     $guest_email=htmlspecialchars(strip_tags($_POST['Email']));

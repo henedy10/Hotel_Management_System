@@ -1,10 +1,10 @@
 <?php
 require "./book_room_by_guest.php";
 
-$sql_select_all_rooms="SELECT distinct(room_type) FROM rooms";
+$sql_select_all_rooms="SELECT room_type FROM rooms WHERE NumberRooms>NumberBooked";
 $result_all_rooms=$conn->query($sql_select_all_rooms);
 
-$sql_select_all_beds="SELECT bed_type,room_type FROM rooms GROUP BY bed_type,room_type";
+$sql_select_all_beds="SELECT bed_type,room_type FROM rooms WHERE NumberRooms>NumberBooked";
 $result_all_beds=$conn->query($sql_select_all_beds);
 
 $sql_select_all_meals="SELECT `name` FROM meals";

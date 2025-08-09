@@ -10,7 +10,14 @@ $stmt->execute();
 $result=$stmt->get_result();
 $row=$result->fetch_assoc();
 
+$sql_select_available_rooms="SELECT room_type FROM rooms WHERE NumberRooms>NumberBooked";
+$result_all_rooms=$conn->query($sql_select_available_rooms);
 
+$sql_select_available_beds="SELECT bed_type FROM rooms WHERE NumberRooms>NumberBooked";
+$result_all_beds=$conn->query($sql_select_available_beds);
+
+$sql_select_available_meals="SELECT * FROM meals";
+$result_all_meals=$conn->query($sql_select_available_meals);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,24 +107,21 @@ $row=$result->fetch_assoc();
                     <h4>Reservation information</h4>
                     <select name="EditRoomType" class="selectinput">
 						<option value="<?php echo $row['room_type'] ?>" selected ><?php echo $row['room_type'] ?> </option>
-                        <option value="Superior Room">SUPERIOR ROOM</option>
-                        <option value="Deluxe Room">DELUXE ROOM</option>
-						<option value="Guest House">GUEST HOUSE</option>
-						<option value="Single Room">SINGLE ROOM</option>
+                        <?php while($row_rooms=$result_all_rooms->fetch_assoc()): ?>
+                        <option value="<?php echo $row_rooms['room_type'] ?>"><?php echo $row_rooms['room_type'] ?></option>
+                        <?php endwhile; ?>
                     </select>
                     <select name="EditBed" class="selectinput">
 						<option value="<?php echo $row['bed_type'] ?>" selected ><?php echo $row['bed_type'] ?></option>
-                        <option value="Single">Single</option>
-                        <option value="Double">Double</option>
-						<option value="Triple">Triple</option>
-                        <option value="Quad">Quad</option>
+                        <?php while($row_beds=$result_all_beds->fetch_assoc()):?>
+                        <option value="<?php echo $row_beds['bed_type'] ?>"><?php echo $row_beds['bed_type']?></option>
+                        <?php endwhile;?>
                     </select>
                     <select name="EditMeal" class="selectinput">
 						<option value="<?php echo $row['meal'] ?>" selected><?php echo $row['meal'] ?></option>
-                        <option value="Room only">Room only</option>
-                        <option value="Breakfast">Breakfast</option>
-						<option value="Half Board">Half Board</option>
-						<option value="Full Board">Full Board</option>
+                        <?php while($row_meals=$result_all_meals->fetch_assoc()): ?>
+                        <option value="<?php echo $row_meals['name'] ?>"><?php echo $row_meals['name'] ?></option>
+                        <?php endwhile; ?>
 					</select>
                     <div class="datesection">
                         <span>

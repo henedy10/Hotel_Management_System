@@ -5,7 +5,7 @@ if(isset($_POST['book'])){
   header("Location: ./user_room_book/roombookconfirm.php");
 }
 
-$sql_select_all_rooms="SELECT distinct(room_type) FROM rooms";
+$sql_select_all_rooms="SELECT * FROM rooms";
 $result=$conn->query($sql_select_all_rooms);
 ?>
 
@@ -91,7 +91,9 @@ $result=$conn->query($sql_select_all_rooms);
                   <i class="fa-solid fa-dumbbell"></i>
                   <i class="fa-solid fa-person-swimming"></i>
                 </div>
+                <?php if($row['NumberRooms']>$row['NumberBooked']):?>
                 <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+                <?php endif;?>
               </div>
             </div>
             <?php endwhile; ?>
