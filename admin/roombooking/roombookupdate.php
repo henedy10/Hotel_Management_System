@@ -1,6 +1,6 @@
 <?php 
-require "../csrf.php";
-require "../database/config.php";
+require __DIR__ ."/../../csrf.php";
+require __DIR__ ."/../../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['guestdetailedit'])){
     $guest_name=htmlspecialchars(strip_tags($_POST['EditName']));
@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['guestdetailedit'])){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
-        die("CSRF IS INVALID!");
+        die("CSRF is invalid!");
     }
     // validation guest information
 

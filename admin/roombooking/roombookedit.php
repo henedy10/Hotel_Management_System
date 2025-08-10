@@ -1,5 +1,5 @@
 <?php 
-require "./roombookupdate.php";
+require __DIR__ ."/roombookupdate.php";
 if($_SERVER['REQUEST_METHOD']=="POST"&&isset($_POST['edit'])){
     $_SESSION['id']=$_POST['id'];
 }

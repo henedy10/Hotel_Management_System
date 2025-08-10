@@ -1,5 +1,5 @@
 <?php 
-require "./roomadd.php";
+require __DIR__ ."/roomadd.php";
 $sql_select_all_rooms="SELECT * FROM rooms GROUP BY room_type,bed_type";
 $result=$conn->query($sql_select_all_rooms);
 ?>
@@ -16,7 +16,7 @@ $result=$conn->query($sql_select_all_rooms);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/room.css">
+    <link rel="stylesheet" href="../css/room.css">
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">

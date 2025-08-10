@@ -26,7 +26,7 @@
             <p>BLUEBIRD</p>
         </div>
         <div class="logout">
-        <a href="../admin/logout.php"><button class="btn btn-primary">Logout</button></a>
+        <a href="./logout.php"><button class="btn btn-primary">Logout</button></a>
         </div>
     </nav>
     <nav class="sidenav">
@@ -43,11 +43,11 @@
     <!-- main section -->
     <div class="mainscreen">
         <iframe class="frames frame1 active" src="./dashboard.php" frameborder="0"></iframe>
-        <iframe class="frames frame2" src="./roombook.php" frameborder="0"></iframe>
+        <iframe class="frames frame2" src="./roombooking/roombook.php" frameborder="0"></iframe>
         <iframe class="frames frame3" src="./payment.php" frameborder="0"></iframe>
-        <iframe class="frames frame4" src="./room.php" frameborder="0"></iframe>
-        <iframe class="frames frame4" src="./staff.php" frameborder="0"></iframe>
-        <iframe class="frames frame4" src="./meal.php" frameborder="0"></iframe>
+        <iframe class="frames frame4" src="./rooms/room.php" frameborder="0"></iframe>
+        <iframe class="frames frame4" src="./staff/staff.php" frameborder="0"></iframe>
+        <iframe class="frames frame4" src="./meal/meal.php" frameborder="0"></iframe>
     </div>
 </body>
 

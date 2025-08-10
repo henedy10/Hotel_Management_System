@@ -1,6 +1,6 @@
 <?php 
 
-require "./roombookdelete.php";
+require __DIR__ ."/roombookdelete.php";
 
 $sql_room_booked="SELECT * FROM room_booking";
 $result=$conn->query($sql_room_booked);
@@ -19,7 +19,7 @@ $result=$conn->query($sql_room_booked);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="./css/roombook.css">
+    <link rel="stylesheet" href="../css/roombook.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>BlueBird - Admin</title>
 </head>

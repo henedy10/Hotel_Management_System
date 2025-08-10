@@ -1,5 +1,5 @@
 <?php 
-require "admin_login.php";
+require __DIR__ ."/admin_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -64,7 +64,7 @@ require "admin_login.php";
                     </p>
                 </div>
                 <!-- Employee Login -->
-                <form class="employee_login authsection active" id="employeelogin" action="admin_login.php" method="POST">
+                <form class="employee_login authsection active" id="employeelogin" action="./admin_login.php" method="POST">
                     <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
                     <div class="form-floating">
                         <input type="email" class="form-control" name="Emp_Email" placeholder=" ">

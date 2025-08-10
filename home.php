@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "./database/config.php";
+require __DIR__ ."/database/config.php";
 if(isset($_POST['book'])){
   header("Location: ./user_room_book/roombookconfirm.php");
 }
@@ -47,7 +47,7 @@ $result=$conn->query($sql_select_all_rooms);
       <li><a href="#secondsection">Rooms</a></li>
       <li><a href="#thirdsection">Facilites</a></li>
       <li><a href="#contactus">contact us</a></li>
-      <a href="./user_logout.php"><button class="btn btn-danger">Logout</button></a>
+      <a href="./user_log/user_logout.php"><button class="btn btn-danger">Logout</button></a>
     </ul>
   </nav>
 

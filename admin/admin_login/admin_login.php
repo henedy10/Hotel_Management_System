@@ -1,6 +1,6 @@
 <?php 
-require "../../csrf.php";
-require "../../database/config.php";
+require __DIR__ . "/../../csrf.php";
+require __DIR__ ."/../../database/config.php";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
-        die("CSRF IS INVALID!");
+        die("CSRF is invalid!");
     }
     $_SESSION['id_staff']=$_POST['id_edit'];
 
@@ -39,7 +39,7 @@ $row=$result->fetch_assoc();
             $row=$result->fetch_assoc();
             if(!password_verify($employee_password,$row['password'])){
                 $_SESSION['exist_account_msg']="Password is incorrect";
-                header("Location: admin_login_view.php");
+                header("Location: ./admin_login_view.php");
                 exit;
             }else{
                 header("Location: ../admin.php");
@@ -47,11 +47,11 @@ $row=$result->fetch_assoc();
             }
         }else{
             $_SESSION['exist_account_msg']="This account doesn't exist";
-            header("Location: admin_login_view.php");
+            header("Location: ./admin_login_view.php");
             exit;
         }
     }else{
-        header("Location: admin_login_view.php");
+        header("Location: ./admin_login_view.php");
         exit;
     }
 }

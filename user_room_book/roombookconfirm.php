@@ -1,5 +1,5 @@
 <?php
-require "./book_room_by_guest.php";
+require __DIR__ ."/book_room_by_guest.php";
 
 $sql_select_all_rooms="SELECT room_type FROM rooms WHERE NumberRooms>NumberBooked";
 $result_all_rooms=$conn->query($sql_select_all_rooms);

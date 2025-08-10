@@ -1,26 +1,25 @@
 <?php
-require "../csrf.php";
-require "../database/config.php";
+require __DIR__ ."/../../csrf.php";
+require __DIR__ ."/../../database/config.php";
 
-if($_SERVER['REQUEST_METHOD']=="POST"){
+if($_SERVER["REQUEST_METHOD"]=="POST"){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
-        die("CSRF IS INVALID!");
+        die("CSRF is invalid!");
     }
-    $_SESSION['id_staff']=$_POST['id_edit'];
-}
-$sql_select_staff="SELECT * FROM staff WHERE id=?";
-$stmt=$conn->prepare($sql_select_staff);
-$stmt->bind_param("i",$_SESSION['id_staff']);
-$stmt->execute();
-$result=$stmt->get_result();
-$row=$result->fetch_assoc();
 
+    $_SESSION['id_meal_edit']=$_POST['id_edit'];
+}
+    $sql_select_meal='SELECT * FROM meals WHERE id=?';
+    $stmt=$conn->prepare($sql_select_meal);
+    $stmt->bind_param("i",$_SESSION['id_meal_edit']);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $row=$result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,28 +37,21 @@ $row=$result->fetch_assoc();
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
 
-        <h2 class="text-2xl font-bold bg-green-500 text-white text-center py-4">Edit Staff List</h2>  
+        <h2 class="text-2xl font-bold bg-green-500 text-white text-center py-4">Edit Meal List</h2>  
 
-        <form action="./staffupdate.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
+        <form action="./mealupdate.php" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-300">
             <input type="hidden" name="csrf_token" value="<?php echo GenerateCsrfToken(); ?>">
             <div>
-                <label for="staffname" class="block text-sm font-medium text-gray-700 mb-1">Name :</label>
-                <input type="text" name="staffnameedit" value="<?php echo $row['name'] ?>" placeholder="Enter Name For Staff" id="staffname" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >
+                <label for="mealname" class="block text-sm font-medium text-gray-700 mb-1">Name :</label>
+                <input type="text" name="mealnameedit" id="mealname"  value="<?php echo $row['name'] ?>" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400" >
             </div>
             <div>
-                <label for="staffrole" class="block text-sm font-medium text-gray-700 mb-1">Role :</label>
-                <select name="staffroleedit" id="staffrole" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400">
-                    <option value="<?php echo $row['role'] ?>" selected><?php echo $row['role'] ?></option>
-                    <option value="Manager">Manager</option>
-                    <option value="Cook">Cook</option>
-                    <option value="Helper">Helper</option>
-                    <option value="cleaner">cleaner</option>
-                    <option value="weighter">weighter</option>
-                </select>
+                <label for="mealprice" class="block text-sm font-medium text-gray-700 mb-1">Price :</label>
+                <input type="number" name="mealpriceedit" id="mealprice" min="0"  value="<?php echo $row['price'] ?>" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-400">
             </div>
             <div class="flex items-end">
-                <input type="hidden" name="edit_id" value="<?php echo $row['id'] ?>">
-                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded" name="editstaff">edit Staff</button>
+                <input type="hidden" name="id_update" value="<?php echo $row['id'] ?>">
+                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded" name="editmeal">Edit Meal</button>
             </div>
         </form>
         <?php if (isset($_SESSION['failure_edit_msg'])): ?>
@@ -83,5 +75,4 @@ $row=$result->fetch_assoc();
         <?php endif; ?>       
     </div>
 </body>
-
 </html>

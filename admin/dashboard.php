@@ -1,5 +1,5 @@
 <?php 
-require "../database/config.php";
+require __DIR__ ."/../database/config.php";
 
 $sql_count_staff="SELECT * FROM staff";
 $result_count_staff=$conn->query($sql_count_staff);

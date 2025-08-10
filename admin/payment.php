@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "../database/config.php";
+require __DIR__ ."/../database/config.php";
 $sql_select_room_booked="SELECT * FROM room_booking";
 $result=$conn->query($sql_select_room_booked);
 ?>

@@ -337,7 +337,7 @@
 		}
 
 		.cut {
-			-webkit-transition: opacity 100ms ease-in;
+			transition: opacity 100ms ease-in;
 		}
 
 		tr:hover .cut {
@@ -346,7 +346,7 @@
 
 		@media print {
 			* {
-				-webkit-print-color-adjust: exact;
+				print-color-adjust: exact;
 			}
 
 			html {

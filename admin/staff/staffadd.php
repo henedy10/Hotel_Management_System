@@ -1,6 +1,6 @@
 <?php 
-require "../csrf.php";
-require "../database/config.php";
+require __DIR__ ."/../../csrf.php";
+require __DIR__ ."/../../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $name_staff=htmlspecialchars(strip_tags($_POST['staffname']));
@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
-        die("CSRF IS INVALID!");
+        die("CSRF is invalid!");
     }
     if(empty($name_staff)){
         $_SESSION['errors']['staff_name']="Staff_Name is required";

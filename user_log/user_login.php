@@ -1,6 +1,6 @@
 <?php 
-require "./csrf.php";
-require "./database/config.php";
+require __DIR__ . "/../csrf.php";
+require __DIR__ ."/../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
 
@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     
     if(!isset($_POST['csrf_token'])|| !hash_equals($csrf_token,$_POST['csrf_token'])){
-        die("CSRF IS INVALID!");
+        die("CSRF is invalid!");
     }
 
     if(empty($user_name)){
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         $_SESSION['errors']['user_password_error']="Password must be 8 characters at least";
     }
     if(!empty($_SESSION['errors'])){
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit;
     }else{
         $sql_fetch_user="SELECT * FROM users WHERE name = ? AND email = ? ";
@@ -40,17 +40,17 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
             $row=$result->fetch_assoc();
             if(!password_verify($user_password,$row['password'])){
                 $_SESSION['errors']['user_password_error']="Password is incorrect!";
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             }else{
                 $_SESSION['user_name']=$row['name'];
                 $_SESSION['user_email']=$row['email'];
-                header("Location: home.php?id=$row[id]");
+                header("Location: ../home.php?id=$row[id]");
                 exit;
             }
         }else{
             $_SESSION['exist_account_msg']="This account is not exist! ";
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit;
         }
     }

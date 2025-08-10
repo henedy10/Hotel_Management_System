@@ -1,6 +1,6 @@
 <?php
-require "../csrf.php";
-require "../database/config.php";
+require __DIR__ ."/../../csrf.php";
+require __DIR__ ."/../../database/config.php";
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $csrf_token=htmlspecialchars(strip_tags(GenerateCsrfToken()));
     

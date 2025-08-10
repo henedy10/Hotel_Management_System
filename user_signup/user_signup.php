@@ -1,7 +1,6 @@
 <?php
-
-require "../csrf.php";
-require "../database/config.php";
+require __DIR__ ."/../csrf.php";
+require __DIR__ ."/../database/config.php";
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $user_name_signup=htmlspecialchars(strip_tags($_POST['Username_Signup']));
