@@ -1,8 +1,13 @@
 <?php 
 session_start();
 require __DIR__ ."/database/config.php";
-if(isset($_POST['book'])){
-  header("Location: ./user_room_book/roombookconfirm.php");
+if(isset($_SESSION['user_name'])&&isset($_SESSION['user_email'])){
+  if(isset($_POST['book'])){
+    header("Location: ./user_room_book/roombookconfirm.php");
+  }
+}else{
+  header("Location: ./index.php");
+  exit;
 }
 
 $sql_select_all_rooms="SELECT * FROM rooms";

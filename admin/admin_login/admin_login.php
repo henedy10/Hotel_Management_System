@@ -42,6 +42,8 @@ $row=$result->fetch_assoc();
                 header("Location: ./admin_login_view.php");
                 exit;
             }else{
+                $_SESSION['admin_name']=$row['name'];
+                $_SESSION['admin_email']=$row['email'];
                 header("Location: ../admin.php");
                 exit;
             }
