@@ -97,7 +97,9 @@ $result=$conn->query($sql_select_all_rooms);
                   <i class="fa-solid fa-person-swimming"></i>
                 </div>
                 <?php if($row['NumberRooms']>$row['NumberBooked']):?>
-                <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+                  <button type="submit" class="btn btn-primary bookbtn" name="book">Book</button>
+                <?php else: ?>
+                  <p class="text-red-500">* This room is not available now!</p>
                 <?php endif;?>
               </div>
             </div>
