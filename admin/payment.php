@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require __DIR__ ."/../database/config.php";
-$sql_select_room_booked="SELECT * FROM room_booking";
+$sql_select_room_booked="SELECT * FROM room_booking AS b JOIN rooms AS r ON b.room_id = r.id";
 $result=$conn->query($sql_select_room_booked);
 ?>
 

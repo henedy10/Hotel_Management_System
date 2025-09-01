@@ -1,11 +1,9 @@
 <?php
 require __DIR__ ."/book_room_by_guest.php";
 
-$sql_select_all_rooms="SELECT room_type FROM rooms WHERE NumberRooms>NumberBooked";
+$sql_select_all_rooms="SELECT id,bed_type,room_type FROM rooms WHERE NumberRooms>NumberBooked";
 $result_all_rooms=$conn->query($sql_select_all_rooms);
 
-$sql_select_all_beds="SELECT bed_type,room_type FROM rooms WHERE NumberRooms>NumberBooked";
-$result_all_beds=$conn->query($sql_select_all_beds);
 
 $sql_select_all_meals="SELECT `name` FROM meals";
 $result_all_meals=$conn->query($sql_select_all_meals);
@@ -82,13 +80,7 @@ $result_all_meals=$conn->query($sql_select_all_meals);
                     <select name="RoomType" class="selectinput">
                         <option value selected >Type Of Room</option>
                         <?php while($row_rooms=$result_all_rooms->fetch_assoc()): ?>
-                        <option value="<?php echo $row_rooms['room_type'] ?>"><?php echo $row_rooms['room_type'] ?></option>
-                        <?php endwhile; ?>
-                    </select>
-                    <select name="Bed" class="selectinput">
-                        <option value selected >Bedding Type</option>
-                        <?php while($row_beds=$result_all_beds->fetch_assoc()): ?>
-                        <option value="<?php echo $row_beds['bed_type'] ?>"><?php echo $row_beds['bed_type'] . " =>" .($row_beds['room_type']) ?></option>
+                        <option value="<?php echo $row_rooms['id'] ?>"><?php echo $row_rooms['bed_type'] . " =>" .($row_rooms['room_type']) ?></option>
                         <?php endwhile; ?>
                     </select>
                     <select name="Meal" class="selectinput">

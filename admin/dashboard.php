@@ -1,17 +1,17 @@
 <?php 
-require __DIR__ ."/../database/config.php";
+  require __DIR__ ."/../database/config.php";
 
-$sql_count_staff="SELECT * FROM staff";
-$result_count_staff=$conn->query($sql_count_staff);
-$num_staff=$result_count_staff->num_rows;
+  $sql_count_staff="SELECT * FROM staff";
+  $result_count_staff=$conn->query($sql_count_staff);
+  $num_staff=$result_count_staff->num_rows;
 
-$sql_count_room= "SELECT SUM(NumberRooms) as num FROM rooms";
-$result_count_room=$conn->query($sql_count_room);
-$num_room=$result_count_room->fetch_assoc();
+  $sql_count_room= "SELECT SUM(NumberRooms) as num FROM rooms";
+  $result_count_room=$conn->query($sql_count_room);
+  $num_room=$result_count_room->fetch_assoc();
 
-$sql_count_room_booked="SELECT * FROM room_booking";
-$result_count_room_booked=$conn->query($sql_count_room_booked);
-$num_room_booked=$result_count_room_booked->num_rows;
+  $sql_count_room_booked="SELECT * FROM room_booking WHERE check_out>=CURDATE()";
+  $result_count_room_booked=$conn->query($sql_count_room_booked);
+  $num_room_booked=$result_count_room_booked->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -86,18 +86,18 @@ $num_room_booked=$result_count_room_booked->num_rows;
 </script>
 
 <script>
-Morris.Bar({
- element : 'profitchart',
- data:[<?php echo $chart_data;?>],
- xkey:'date',
- ykeys:['profit'],
- labels:['Profit'],
- hideHover:'auto',
- stacked:true,
- barColors:[
-  'rgba(153, 102, 255, 1)',
- ]
-});
+  Morris.Bar({
+    element : 'profitchart',
+    data:[<?php echo $chart_data;?>],
+    xkey:'date',
+    ykeys:['profit'],
+    labels:['Profit'],
+    hideHover:'auto',
+    stacked:true,
+    barColors:[
+      'rgba(153, 102, 255, 1)',
+    ]
+  });
 </script>
 
 </html>

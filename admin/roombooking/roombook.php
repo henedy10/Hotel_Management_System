@@ -2,7 +2,7 @@
 
 require __DIR__ ."/roombookdelete.php";
 
-$sql_room_booked="SELECT * FROM room_booking";
+$sql_room_booked="SELECT * FROM room_booking AS b JOIN rooms AS r ON b.room_id = r.id";
 $result=$conn->query($sql_room_booked);
 
 ?>
@@ -43,6 +43,7 @@ $result=$conn->query($sql_room_booked);
             </thead>
             <tbody class="text-gray-800 text-base">
                 <?php while($row=$result->fetch_assoc()):?>
+                    
                     <?php 
                         $check_in_date= new DateTime($row['check_in']);
                         $check_out_date= new DateTime($row['check_out']);

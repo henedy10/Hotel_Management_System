@@ -7,7 +7,6 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $guest_email=htmlspecialchars(strip_tags($_POST['Email']));
     $guest_phone=htmlspecialchars(strip_tags($_POST['Phone']));
     $guest_room_selected=$_POST['RoomType'];
-    $guest_bed_selected=$_POST['Bed'];
     $guest_meal_selected=$_POST['Meal'];
     $check_in=$_POST['cin'];
     $check_out=$_POST['cout'];
@@ -45,9 +44,6 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     if(empty($guest_room_selected)){
         $_SESSION['errors_reservation_info']['room']="You must select type for your room";
     }
-    if(empty($guest_bed_selected)){
-        $_SESSION['errors_reservation_info']['bed']="You must select type for your bed";       
-    }
     if(empty($guest_meal_selected)){
         $_SESSION['errors_reservation_info']['meal']="You must select type for your meal";
     }
@@ -61,25 +57,24 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     if(empty($_SESSION['errors_reservation_info'])&&empty($_SESSION['errors_guest_info'])&&empty($_SESSION['account_exist_msg'])){
-        $sql_check_order="SELECT * FROM rooms WHERE room_type=? AND bed_type=?";
+        $sql_check_order="SELECT * FROM rooms WHERE id=?";
         $stmt_sql_check_order=$conn->prepare($sql_check_order);
-        $stmt_sql_check_order->bind_param("ss",$guest_room_selected,$guest_bed_selected);
+        $stmt_sql_check_order->bind_param("i",$guest_room_selected);
         $stmt_sql_check_order->execute();
         $result_check_order=$stmt_sql_check_order->get_result();
         if($result_check_order->num_rows<=0){
             $_SESSION['check_order']="This order is not available now";
         }else{
-            $sql_save_order="INSERT INTO room_booking(guest_name,guest_email,guest_phone,room_type,bed_type,meal,check_in,check_out) VALUES (?,?,?,?,?,?,?,?)";
+            $sql_save_order="INSERT INTO room_booking(guest_name,guest_email,guest_phone,meal,check_in,check_out,room_id) VALUES (?,?,?,?,?,?,?)";
             $stmt=$conn->prepare($sql_save_order);
-            $stmt->bind_param("ssssssss",
+            $stmt->bind_param("ssssssi",
                 $guest_name,
                 $guest_email,
                 $guest_phone,
-                $guest_room_selected,
-                $guest_bed_selected,
                 $guest_meal_selected,
                 $check_in,
-                $check_out
+                $check_out,
+                $guest_room_selected
             );
             if($stmt->execute()){
                 $_SESSION['success_msg']="Your order is submission successfully";
