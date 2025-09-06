@@ -2,6 +2,11 @@
 require __DIR__ ."/../csrf.php";
 require __DIR__ ."/../database/config.php";
 require __DIR__ ."/../admin/roombooking/nobooked_rooms.php";
+require __DIR__.'/../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $guest_name=htmlspecialchars(strip_tags($_POST['Name']));
     $guest_email=htmlspecialchars(strip_tags($_POST['Email']));
@@ -78,6 +83,36 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
             );
             if($stmt->execute()){
                 $_SESSION['success_msg']="Your order is submission successfully";
+                $mail = new PHPMailer(true);
+
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';  
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'ahmedfaisalzayed288@gmail.com'; // إيميل الفندق
+                $mail->Password   = 'kniu dmbr ilqw oamf';   // باسورد التطبيق
+                $mail->SMTPSecure = 'tls'; 
+                $mail->Port       = 587;
+
+                // المرسل والمستقبل
+                $mail->setFrom('ahmedfaisalzayed288@gmail.com', 'Hotel blue bird');
+                $mail->addAddress($guest_email, $guest_name);  
+
+                // محتوى الرسالة
+                $mail->isHTML(true);
+                $mail->Subject = 'Confirm Room Booking - Hotel System';
+                $mail->Body    = "
+                    مرحباً <b>$user_name</b>,<br><br>
+                    تم تأكيد حجزك بنجاح.<br>
+                    تفاصيل الحجز:<br>
+                    - رقم الغرفة: $guest_room_selected <br>
+                    - تاريخ الدخول: $check_in <br>
+                    - تاريخ الخروج: $check_out <br><br>
+                    مع تحياتنا،<br>
+                    إدارة الفندق
+                ";
+
+                $mail->send();
+
             }else{
                 echo "error : ".$stmt->error;
             }
